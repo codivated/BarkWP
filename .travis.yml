@@ -33,9 +33,10 @@ before_script:
   - |
     composer global require wp-coding-standards/wpcs
     phpcs --config-set installed_paths $HOME/.composer/vendor/wp-coding-standards/wpcs
+    composer global require codacy/codacycoverage
 
 script:
   - phpunit --coverage-xml coverage
 
 after_script:
-  - vendor/bin/codacycoverage phpunit coverage
+  - codacycoverage phpunit coverage
