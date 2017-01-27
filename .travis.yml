@@ -35,4 +35,7 @@ before_script:
     phpcs --config-set installed_paths $HOME/.composer/vendor/wp-coding-standards/wpcs
 
 script:
-  - phpunit
+  - phpunit --coverage-xml coverage
+
+after_script:
+  - vendor/bin/codacycoverage phpunit coverage

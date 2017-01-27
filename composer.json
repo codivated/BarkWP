@@ -1,0 +1,5 @@
+{
+    "require": {
+        "codacy/coverage": "^1.0"
+    }
+}
