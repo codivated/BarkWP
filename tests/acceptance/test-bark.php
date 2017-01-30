@@ -21,7 +21,7 @@ class BarkTest extends WP_UnitTestCase {
 			'post_type' => 'cdv8_bark',
 		) );
 
-		$this->assertNotEmpty( $barks->posts );
-		$this->assertEquals( $title, $barks->posts[0]->post_title );
+		$this->assertNotEmpty( $barks->posts, 'Could not find any barks in database.' );
+		$this->assertEquals( $title, $barks->posts[0]->post_title, 'Found a bark in the database, but its title did not match what was expected.' );
 	}
 }

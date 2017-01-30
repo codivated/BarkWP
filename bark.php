@@ -62,3 +62,11 @@ function setup_post_type() {
 	register_post_type( 'cdv8_bark', $args );
 }
 add_action( 'init', __NAMESPACE__ . '\\setup_post_type' );
+
+add_action( 'bark', function( $details ) {
+	$entry = wp_insert_post( array(
+		'post_type' => 'cdv8_bark',
+		'post_title' => $details['title'],
+		'post_status' => 'publish',
+	) );
+} );
