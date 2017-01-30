@@ -4,7 +4,7 @@
  * Version: 0.1
  * Description: Supercharged WordPress error logging and reporting utility.
  * Author: Codivated
- * Author URI: http://codivated.com/
+ * Author URI: https://www.codivated.com/
  * Text Domain: bark
  * Domain Path: languages
  * License: GPL
