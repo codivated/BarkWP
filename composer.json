@@ -1,5 +1,8 @@
 {
     "require": {
-        "codacy/coverage": "^1.0"
+        "psr/log": "^1.0"
+    },
+    "require-dev": {
+      "codacy/coverage": "^1.0"
     }
 }
