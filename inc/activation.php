@@ -8,15 +8,6 @@
 use Psr\Log\LogLevel;
 
 /**
- * Install Bark.
- */
-function bark_plugin_activation() {
-	\Bark\register_levels();
-	bark_add_default_levels();
-}
-register_activation_hook( __FILE__, 'bark_plugin_activation' );
-
-/**
  * Add the default levels to the level taxonomy.
  */
 function bark_add_default_levels() {

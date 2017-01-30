@@ -18,6 +18,15 @@ require_once __DIR__ . '/inc/activation.php';
 require_once __DIR__ . '/inc/class-bark.php';
 
 /**
+ * Bark plugin activation.
+ */
+function handle_adding_default_levels() {
+	\Bark\register_levels();
+	bark_add_default_levels();
+}
+register_activation_hook( __FILE__, 'handle_adding_default_levels' );
+
+/**
  * Handle adding bark entry when `bark` action is called.
  *
  * @param array $details Bark details.

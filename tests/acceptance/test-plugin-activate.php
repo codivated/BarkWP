@@ -9,14 +9,28 @@ class PluginActivationTest extends WP_UnitTestCase {
 	/**
 	 * @test
 	 */
-	function barkPostTypeShouldExist() {
+	public function barkPostTypeShouldExist() {
 		$this->assertTrue( post_type_exists( 'cdv8_bark' ) );
 	}
 
 	/**
 	 * @test
 	 */
-	function barkLevelTaxonomyShouldExist() {
+	public function barkLevelTaxonomyShouldExist() {
 		$this->assertTrue( taxonomy_exists( 'bark-level' ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function pluginActivationFunctionCorrectlyAddsDefaultBarkLevels() {
+		handle_adding_default_levels();
+		$term_query = new WP_Term_Query( array(
+			'taxonomy' => 'bark-level',
+			'hide_empty' => false,
+		) );
+		$terms = $term_query->get_terms();
+
+		$this->assertCount( 8, $terms );
 	}
 }

@@ -13,7 +13,7 @@ class BarkTest extends WP_UnitTestCase {
 	/**
 	 * @test
 	 */
-	function barkActionAddsEntryToDatabaseAsBarkPostType() {
+	public function barkActionAddsEntryToDatabaseAsBarkPostType() {
 		$message = 'Something went wrong!';
 
 		do_action( 'bark', array(
