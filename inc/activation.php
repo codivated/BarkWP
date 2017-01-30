@@ -5,22 +5,21 @@
  * @package bark
  */
 
-namespace Bark;
 use Psr\Log\LogLevel;
 
 /**
  * Install Bark.
  */
-function activation() {
-	register_bark_level();
-	add_bark_levels();
+function bark_plugin_activation() {
+	\Bark\register_levels();
+	bark_add_default_levels();
 }
-register_activation_hook( __FILE__, __NAMESPACE__ . '\\activation' );
+register_activation_hook( __FILE__, 'bark_plugin_activation' );
 
 /**
  * Add the default levels to the level taxonomy.
  */
-function add_bark_levels() {
+function bark_add_default_levels() {
 	wp_create_term( LogLevel::EMERGENCY, 'bark-level' );
 	wp_create_term( LogLevel::CRITICAL, 'bark-level' );
 	wp_create_term( LogLevel::ALERT, 'bark-level' );

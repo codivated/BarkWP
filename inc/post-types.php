@@ -5,17 +5,19 @@
  * @package Bark
  */
 
+namespace Bark;
+
 /**
  * Register bark levels.
  */
-function register_bark_level() {
+function register_levels() {
 	register_taxonomy( 'bark-level', 'cdv8_bark', array(
 		'label'              => __( 'Types', 'bark' ),
 		'hierarchical'       => true,
 		'publicly_queryable' => false,
 	) );
 }
-add_action( 'init', __NAMESPACE__ . '\\register_bark_level' );
+add_action( 'init', __NAMESPACE__ . '\\register_levels' );
 
 /**
  * Setup Bark post types.
