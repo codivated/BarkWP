@@ -6,15 +6,31 @@
  */
 
 namespace Bark;
+use Psr\Log\LogLevel;
 
 /**
  * Install Bark.
  */
 function install() {
-	setup_post_type();
+	add_default_levels();
 	flush_rewrite_rules();
 }
 register_activation_hook( __FILE__, __NAMESPACE__ . '\\install' );
+
+/**
+ * Add the default levels to the level taxonomy.
+ */
+function add_default_levels() {
+	wp_create_term( LogLevel::EMERGENCY, 'bark-level' );
+	wp_create_term( LogLevel::CRITICAL, 'bark-level' );
+	wp_create_term( LogLevel::ALERT, 'bark-level' );
+	wp_create_term( LogLevel::ERROR, 'bark-level' );
+	wp_create_term( LogLevel::WARNING, 'bark-level' );
+	wp_create_term( LogLevel::NOTICE, 'bark-level' );
+	wp_create_term( LogLevel::INFO, 'bark-level' );
+	wp_create_term( LogLevel::DEBUG, 'bark-level' );
+}
+
 
 /**
  * Setup Bark post types.
@@ -55,3 +71,15 @@ function setup_post_type() {
 	register_post_type( 'cdv8_bark', $args );
 }
 add_action( 'init', __NAMESPACE__ . '\\setup_post_type' );
+
+/**
+ * Register taxonomy for Lumberjack.
+ */
+function register_bark_type() {
+	register_taxonomy( 'bark-level', 'cdv8_bark', array(
+		'label'              => __( 'Types', 'bark' ),
+		'hierarchical'       => true,
+		'publicly_queryable' => false,
+	) );
+}
+add_action( 'init', __NAMESPACE__ . '\\register_bark_type' );

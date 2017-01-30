@@ -6,29 +6,26 @@
  */
 
 namespace Bark;
+use Psr\Log\AbstractLogger;
 
 /**
  * Handles functionality related to handling barked errors.
  *
  * @package Bark
  */
-class Bark {
+class Bark extends AbstractLogger {
 	/**
-	 * Register hooks for the bark class.
-	 */
-	public function register_hooks() {
-		add_action( 'bark', array( $this, 'log' ) );
-	}
-
-	/**
-	 * Handler for logging a bark.
+	 * Log an entry.
 	 *
-	 * @param array $details Info about the bark.
+	 * @param string $level   Level of the bark.
+	 * @param string $message Message for the entry.
+	 * @param string $context Additional information about the entry.
 	 */
-	public function log( $details ) {
+	public function log( $level, $message, array $context = array() ) {
 		$entry = wp_insert_post( array(
 			'post_type' => 'cdv8_bark',
-			'post_title' => $details['title'],
+			'post_title' => '',
+			'post_content' => $message,
 			'post_status' => 'publish',
 		) );
 	}

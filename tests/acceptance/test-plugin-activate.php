@@ -12,4 +12,11 @@ class PluginActivationTest extends WP_UnitTestCase {
 	function barkPostTypeShouldExist() {
 		$this->assertTrue( post_type_exists( 'cdv8_bark' ) );
 	}
+
+	/**
+	 * @test
+	 */
+	function barkLevelTaxonomyShouldExist() {
+		$this->assertTrue( taxonomy_exists( 'bark-level' ) );
+	}
 }

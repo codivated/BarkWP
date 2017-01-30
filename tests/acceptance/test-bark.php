@@ -6,15 +6,21 @@
  */
 
 class BarkTest extends WP_UnitTestCase {
+	public function setUp() {
+		\Bark\add_default_levels();
+	}
+
 	/**
 	 * @test
 	 */
 	function barkActionAddsEntryToDatabaseAsBarkPostType() {
-		$title = 'Something went wrong!';
+		$message = 'Something went wrong!';
 
 		do_action( 'bark', array(
-			'type' => 'error',
-			'title' => $title,
+			'level' => 'error',
+			'title' => '',
+			'content' => $message,
+			'context' => array(),
 		) );
 
 		$barks = new WP_Query( array(
@@ -22,6 +28,6 @@ class BarkTest extends WP_UnitTestCase {
 		) );
 
 		$this->assertNotEmpty( $barks->posts, 'Could not find any barks in database.' );
-		$this->assertEquals( $title, $barks->posts[0]->post_title, 'Found a bark in the database, but its title did not match what was expected.' );
+		$this->assertEquals( $message, $barks->posts[0]->post_content, 'Found a bark in the database, but its title did not match what was expected.' );
 	}
 }

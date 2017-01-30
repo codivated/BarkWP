@@ -16,5 +16,13 @@ require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/inc/activation.php';
 require_once __DIR__ . '/inc/class-bark.php';
 
-$bark = new \Bark\Bark();
-$bark->register_hooks();
+/**
+ * Handle adding bark entry when `bark` action is called.
+ *
+ * @param array $details Bark details.
+ */
+function bark_add_entry( $details ) {
+	$bark = new \Bark\Bark();
+	$bark->log( $details['level'], $details['content'], $details['context'] );
+}
+add_action( 'bark', 'bark_add_entry' );
