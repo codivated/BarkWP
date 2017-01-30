@@ -7,7 +7,7 @@
 
 class BarkTest extends WP_UnitTestCase {
 	public function setUp() {
-		\Bark\add_default_levels();
+		\Bark\add_bark_levels();
 	}
 
 	/**
