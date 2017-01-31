@@ -22,13 +22,13 @@ class BarkTestCase extends WP_UnitTestCase {
 	/**
 	 * @return int Post ID.
 	 */
-	public function createBark( $details = [] ) {
-		$details = wp_parse_args( [
+	public function createBark( $details = array() ) {
+		$details = wp_parse_args( array(
 			'post_type' => 'cdv8_bark',
 			'post_title' => 'Test Bark',
 			'post_content' => 'Test bark content.',
 			'post_status' => 'publish'
-		], $details );
+		), $details );
 
 		return $this->factory->post->create( $details );
 	}
