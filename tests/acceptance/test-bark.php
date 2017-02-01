@@ -2,7 +2,7 @@
 /**
  * Acceptance tests for barking errors.
  *
- * @package Bark
+ * @package bark
  */
 
 class BarkTest extends WP_UnitTestCase {

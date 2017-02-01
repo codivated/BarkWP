@@ -1,8 +1,8 @@
 <?php
 /**
- * Post types & taxonomies for Bark.
+ * Post types & taxonomies for Bark_Logger.
  *
- * @package Bark
+ * @package bark
  */
 
 namespace Bark;
@@ -12,7 +12,7 @@ namespace Bark;
  */
 function register_levels() {
 	register_taxonomy( 'bark-level', 'cdv8_bark', array(
-		'label'              => __( 'Types', 'bark' ),
+		'label'              => __( 'Levels', 'bark' ),
 		'hierarchical'       => true,
 		'publicly_queryable' => false,
 	) );
@@ -20,22 +20,22 @@ function register_levels() {
 add_action( 'init', __NAMESPACE__ . '\\register_levels' );
 
 /**
- * Setup Bark post types.
+ * Setup Bark_Logger post types.
  */
 function setup_post_type() {
 	$labels = array(
-		'name'                  => _x( 'Bark Entries', 'Post type general name', 'bark' ),
-		'singular_name'         => _x( 'Bark Entry', 'Post type singular name', 'bark' ),
-		'menu_name'             => _x( 'Bark Entries', 'Admin Menu text', 'bark' ),
-		'name_admin_bar'        => _x( 'Bark Entry', 'Add New on Toolbar', 'bark' ),
+		'name'                  => _x( 'Barks', 'Post type general name', 'bark' ),
+		'singular_name'         => _x( 'Bark', 'Post type singular name', 'bark' ),
+		'menu_name'             => _x( 'Barks', 'Admin Menu text', 'bark' ),
+		'name_admin_bar'        => _x( 'Bark', 'Add New on Toolbar', 'bark' ),
 		'add_new'               => __( 'Add New', 'bark' ),
-		'add_new_item'          => __( 'Add New Bark Entry', 'bark' ),
-		'new_item'              => __( 'New Bark Entry', 'bark' ),
-		'edit_item'             => __( 'Edit Bark Entry', 'bark' ),
-		'view_item'             => __( 'View Bark Entry', 'bark' ),
-		'all_items'             => __( 'All Bark Entries', 'bark' ),
-		'search_items'          => __( 'Search Bark Entries', 'bark' ),
-		'parent_item_colon'     => __( 'Parent Bark Entries:', 'bark' ),
+		'add_new_item'          => __( 'Add New Bark', 'bark' ),
+		'new_item'              => __( 'New Bark', 'bark' ),
+		'edit_item'             => __( 'Edit Bark', 'bark' ),
+		'view_item'             => __( 'View Bark', 'bark' ),
+		'all_items'             => __( 'All Barks', 'bark' ),
+		'search_items'          => __( 'Search Barks', 'bark' ),
+		'parent_item_colon'     => __( 'Parent Barks:', 'bark' ),
 		'not_found'             => __( 'No barks found.', 'bark' ),
 		'not_found_in_trash'    => __( 'No barks found in Trash.', 'bark' ),
 	);
@@ -52,7 +52,7 @@ function setup_post_type() {
 		'has_archive'        => true,
 		'hierarchical'       => false,
 		'menu_position'      => null,
-		'supports'           => array( 'title', 'editor', 'author', 'excerpt' ),
+		'supports'           => array( 'title', 'editor', 'author' ),
 	);
 
 	register_post_type( 'cdv8_bark', $args );

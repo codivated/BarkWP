@@ -1,6 +1,6 @@
 <?php
 /**
- * Primary Bark class.
+ * Primary Bark_Logger class.
  *
  * @package bark
  */
@@ -11,9 +11,9 @@ use Psr\Log\AbstractLogger;
 /**
  * Handles functionality related to handling barked errors.
  *
- * @package Bark
+ * @package bark
  */
-class Bark extends AbstractLogger {
+class Bark_Logger extends AbstractLogger {
 	/**
 	 * Log an entry.
 	 *
@@ -22,12 +22,13 @@ class Bark extends AbstractLogger {
 	 * @param string $context Additional information about the entry.
 	 */
 	public function log( $level = 'error', $message, array $context = array() ) {
-		$entry = wp_insert_post( array(
+		$bark = wp_insert_post( array(
 			'post_type' => 'cdv8_bark',
-			'post_title' => '',
+			'post_title' => substr( $message, 0, 35 ) . '...',
 			'post_content' => $message,
 			'post_status' => 'publish',
 		) );
+		$this->assign_level_to_bark( $level, $bark );
 	}
 
 	/**

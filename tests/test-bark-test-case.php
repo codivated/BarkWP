@@ -1,14 +1,14 @@
 <?php
 /**
- * Base class to extend for Bark tests.
+ * Base class to extend for Bark_Logger tests.
  *
- * @package Bark
+ * @package bark
  */
 
 class BarkTestCase extends WP_UnitTestCase {
 	public function setUp() {
 		parent::setUp();
-		$this->bark = new Bark\Bark();
+		$this->bark = new Bark\Bark_Logger();
 	}
 
 	public function testTrue() {
@@ -25,7 +25,6 @@ class BarkTestCase extends WP_UnitTestCase {
 	public function createBark( $details = array() ) {
 		$details = wp_parse_args( array(
 			'post_type' => 'cdv8_bark',
-			'post_title' => 'Test Bark',
 			'post_content' => 'Test bark content.',
 			'post_status' => 'publish'
 		), $details );

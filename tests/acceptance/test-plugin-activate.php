@@ -2,7 +2,7 @@
 /**
  * Acceptance tests for things that happen during plugin activation.
  *
- * @package Bark
+ * @package bark
  */
 
 class PluginActivationTest extends WP_UnitTestCase {

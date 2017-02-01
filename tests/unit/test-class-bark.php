@@ -1,8 +1,8 @@
 <?php
 /**
- * Unit tests for Bark class.
+ * Unit tests for Bark_Logger class.
  *
- * @package Bark
+ * @package bark
  */
 
 class BarkClassTest extends BarkTestCase {
@@ -13,7 +13,7 @@ class BarkClassTest extends BarkTestCase {
 
 	/**
 	 * @test
-	 * @group Bark::assign_level_to_bark
+	 * @group Bark_Logger::assign_level_to_bark
 	 */
 	public function assignLevelCorrectlySucceedsWhenExistingSlugAndBarkIdArePassed() {
 		$bark = $this->createBark();
@@ -28,7 +28,7 @@ class BarkClassTest extends BarkTestCase {
 
 	/**
 	 * @test
-	 * @group Bark::assign_level_to_bark
+	 * @group Bark_Logger::assign_level_to_bark
 	 */
 	public function assignLevelReturnsErrorIfRequestedLevelDoesntExist() {
 		$bark = $this->createBark();
