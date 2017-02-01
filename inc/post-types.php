@@ -52,6 +52,7 @@ function setup_post_type() {
 		'has_archive'        => true,
 		'hierarchical'       => false,
 		'menu_position'      => null,
+		'menu_icon'          => plugin_dir_url( dirname( __FILE__ ) ) . '/assets/bark-icon.png',
 		'supports'           => array( 'title', 'editor', 'author' ),
 	);
 
