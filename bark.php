@@ -41,11 +41,12 @@ function bark_catch_php_errors( $errno, $errstr, $errfile, $errline ) {
 	}
 
 	$bark_details = array(
-		'content' => $errstr,
-		'context' => array(
+		'content' => json_encode( array(
+			'content' => $errstr,
 			'file' => $errfile,
 			'line' => $errline,
-		),
+		) ),
+		'context' => array(),
 	);
 
 	switch ( $errno ) {

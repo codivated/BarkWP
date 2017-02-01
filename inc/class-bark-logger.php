@@ -22,9 +22,10 @@ class Bark_Logger extends AbstractLogger {
 	 * @param string $context Additional information about the entry.
 	 */
 	public function log( $level = 'error', $message, array $context = array() ) {
+		$decoded_message = json_decode( $message );
 		$bark = wp_insert_post( array(
 			'post_type' => 'cdv8_bark',
-			'post_title' => substr( $message, 0, 35 ) . '...',
+			'post_title' => substr( $decoded_message->content, 0, 35 ) . '...',
 			'post_content' => $message,
 			'post_status' => 'publish',
 		) );
