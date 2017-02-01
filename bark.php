@@ -42,7 +42,7 @@ function bark_catch_php_errors( $errno, $errstr, $errfile, $errline ) {
 
 	$bark_details = array(
 		'content' => json_encode( array(
-			'content' => $errstr,
+			'message' => $errstr,
 			'file' => $errfile,
 			'line' => $errline,
 		) ),
@@ -51,9 +51,11 @@ function bark_catch_php_errors( $errno, $errstr, $errfile, $errline ) {
 
 	switch ( $errno ) {
 		case E_USER_ERROR:
+		case E_ERROR:
 			$bark_details['level'] = 'error';
 			break;
 		case E_USER_WARNING:
+		case E_WARNING:
 			$bark_details['level'] = 'warning';
 			break;
 		case E_USER_NOTICE:

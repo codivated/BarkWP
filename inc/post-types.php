@@ -58,3 +58,37 @@ function setup_post_type() {
 	register_post_type( 'cdv8_bark', $args );
 }
 add_action( 'init', __NAMESPACE__ . '\\setup_post_type' );
+
+function admin_column_content( $column_name, $post_id ) {
+	$post = get_post( $post_id );
+	$decoded_content = json_decode( $post->post_content );
+	$levels = wp_get_post_terms( $post_id, 'bark-level' );
+
+	if ( 'bark_file' === $column_name ) {
+		echo esc_html( $decoded_content->file );
+	}
+
+	if ( 'bark_line' === $column_name ) {
+		echo esc_html( $decoded_content->line );
+	}
+
+	if ( 'bark_level' === $column_name ) {
+		echo $levels[0]->name;
+	}
+}
+add_action( 'manage_cdv8_bark_posts_custom_column', __NAMESPACE__ . '\\admin_column_content', 10, 2 );
+
+function set_admin_column_order() {
+	return array(
+		'cb' => '<input type="checkbox" />',
+		'title' => __( 'Message', 'bark' ),
+		'bark_level' => __( 'Level', 'bark' ),
+		'bark_file' => __( 'File', 'bark' ),
+		'bark_line' => __( 'Line #', 'bark' ),
+		'date' => __( 'Logged', 'bark' ),
+	);
+}
+add_filter( 'manage_cdv8_bark_posts_columns' , __NAMESPACE__ . '\\set_admin_column_order' );
+
+
+
