@@ -84,7 +84,7 @@ function set_admin_column_order() {
 		'title' => __( 'Message', 'bark' ),
 		'bark_level' => __( 'Level', 'bark' ),
 		'bark_file' => __( 'File', 'bark' ),
-		'bark_line' => __( 'Line #', 'bark' ),
+		'bark_line' => __( 'Line', 'bark' ),
 		'date' => __( 'Logged', 'bark' ),
 	);
 }
