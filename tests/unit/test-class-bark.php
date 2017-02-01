@@ -11,8 +11,6 @@ class BarkClassTest extends BarkTestCase {
 		$this->addDefaultLevels();
 	}
 
-	// todo: acceptance test for all default levels working
-
 	/**
 	 * @test
 	 * @group Bark::assign_level_to_bark

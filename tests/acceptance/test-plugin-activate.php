@@ -32,5 +32,13 @@ class PluginActivationTest extends WP_UnitTestCase {
 		$terms = $term_query->get_terms();
 
 		$this->assertCount( 8, $terms );
+		$this->assertNotFalse( get_term_by( 'slug', 'emergency', 'bark-level' ) );
+		$this->assertNotFalse( get_term_by( 'slug', 'critical', 'bark-level' ) );
+		$this->assertNotFalse( get_term_by( 'slug', 'alert', 'bark-level' ) );
+		$this->assertNotFalse( get_term_by( 'slug', 'error', 'bark-level' ) );
+		$this->assertNotFalse( get_term_by( 'slug', 'warning', 'bark-level' ) );
+		$this->assertNotFalse( get_term_by( 'slug', 'notice', 'bark-level' ) );
+		$this->assertNotFalse( get_term_by( 'slug', 'info', 'bark-level' ) );
+		$this->assertNotFalse( get_term_by( 'slug', 'debug', 'bark-level' ) );
 	}
 }
