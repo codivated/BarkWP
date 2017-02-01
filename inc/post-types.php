@@ -24,9 +24,9 @@ add_action( 'init', __NAMESPACE__ . '\\register_levels' );
  */
 function setup_post_type() {
 	$labels = array(
-		'name'                  => _x( 'Barks', 'Post type general name', 'bark' ),
+		'name'                  => _x( 'Bark', 'Post type general name', 'bark' ),
 		'singular_name'         => _x( 'Bark', 'Post type singular name', 'bark' ),
-		'menu_name'             => _x( 'Barks', 'Admin Menu text', 'bark' ),
+		'menu_name'             => _x( 'Bark', 'Admin Menu text', 'bark' ),
 		'name_admin_bar'        => _x( 'Bark', 'Add New on Toolbar', 'bark' ),
 		'add_new'               => __( 'Add New', 'bark' ),
 		'add_new_item'          => __( 'Add New Bark', 'bark' ),
