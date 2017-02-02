@@ -12,7 +12,6 @@
  * @package bark
  */
 
-require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/inc/post-types.php';
 require_once __DIR__ . '/inc/functions.php';
 require_once __DIR__ . '/inc/default-filters.php';
