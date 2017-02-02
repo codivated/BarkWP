@@ -6,9 +6,9 @@
  */
 
 function bark_get_barks( $args ) {
-	$args = wp_parse_args( array(
+	$args = wp_parse_args( $args, array(
 		'posts_per_page' => 10,
-	), $args );
+	) );
 	$args['post_type'] = 'cdv8_bark';
 
 	$bark_query = new WP_Query( $args );

@@ -19,8 +19,7 @@ class BarkTest extends WP_UnitTestCase {
 
 		do_action( 'bark', array(
 			'level' => 'error',
-			'content' => $message,
-			'context' => array(),
+			'message' => $message,
 		) );
 
 		$barks = new WP_Query( array(
@@ -29,7 +28,7 @@ class BarkTest extends WP_UnitTestCase {
 
 		$this->assertNotEmpty( $barks->posts, 'Could not find any barks in database.' );
 		$decoded_entry = json_decode( $barks->posts[0]->post_content );
-		$this->assertEquals( $message, $decoded_entry->message, 'Found a bark in the database, but its title did not match what was expected.' );
+		$this->assertEquals( $message, $decoded_entry->message );
 	}
 
 	/**
@@ -39,7 +38,7 @@ class BarkTest extends WP_UnitTestCase {
 		update_option( 'bark-limit-logs', 2 );
 		do_action( 'bark', array(
 			'level' => 'error',
-			'content' => 'Message here',
+			'message' => 'Message here',
 		) );
 		$barks = new WP_Query( array(
 			'post_type' => 'cdv8_bark',

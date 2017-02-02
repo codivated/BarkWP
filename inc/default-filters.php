@@ -11,11 +11,13 @@
  * @param array $details Bark_Logger details.
  */
 function bark_add_entry( $details ) {
-	$bark = new Bark_Logger();
-	if ( empty( $details['context'] ) ) {
-		$details['context'] = array();
-	}
+	$details = wp_parse_args( $details, array(
+		'level' => 'debug',
+		'message' => '',
+		'context' => array(),
+	) );
 
+	$bark = new Bark_Logger();
 	$bark->log( $details['level'], $details['message'], (array) $details['context'] );
 }
 add_action( 'bark', 'bark_add_entry' );
