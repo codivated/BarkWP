@@ -21,7 +21,7 @@ function bark_catch_php_errors( $errno, $errstr, $errfile, $errline ) {
 	}
 
 	$bark_details = array(
-		'content' => $errstr,
+		'message' => $errstr,
 		'context' => array(
 			'file' => $errfile,
 			'line' => $errline,

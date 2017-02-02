@@ -16,7 +16,7 @@ function bark_add_entry( $details ) {
 		$details['context'] = array();
 	}
 
-	$bark->log( $details['level'], $details['content'], (array) $details['context'] );
+	$bark->log( $details['level'], $details['message'], (array) $details['context'] );
 }
 add_action( 'bark', 'bark_add_entry' );
 
