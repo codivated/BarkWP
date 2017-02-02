@@ -18,7 +18,7 @@ function bark_add_entry( $details ) {
 	) );
 
 	$bark = new Bark_Logger();
-	$bark->log( $details['level'], $details['message'], (array) $details['context'] );
+	$bark->log( $details['message'], $details['level'], (array) $details['context'] );
 }
 add_action( 'bark', 'bark_add_entry' );
 

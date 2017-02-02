@@ -64,26 +64,24 @@ function bark_admin_column_content( $column_name, $post_id ) {
 	$decoded = json_decode( $post->post_content );
 	$context = $decoded->context;
 
-	if ( empty( $context->line ) ) {
-
-	}
-
 	$levels = wp_get_post_terms( $post_id, 'bark-level' );
 
 	if ( 'bark_file' === $column_name ) {
-		if ( empty( $context->file ) ) {
-			esc_html_e( 'File not provided.', 'bark' );
-		} else {
-			echo esc_html( $context->file );
+		$file_message = __( 'File not provided.', 'bark' );
+		if ( ! empty( $context->file ) ) {
+			$file_message = $context->file;
 		}
+
+		echo esc_html( $file_message );
 	}
 
 	if ( 'bark_line' === $column_name ) {
-		if ( empty( $context->line ) ) {
-			esc_html_e( 'Line not provided.', 'bark' );
-		} else {
-			echo esc_html( $context->line );
+		$line_message = __( 'Line not provided.', 'bark' );
+		if ( ! empty( $context->line ) ) {
+			$line_message = $context->line;
 		}
+
+		echo esc_html( $line_message );
 	}
 
 	if ( 'bark_level' === $column_name ) {

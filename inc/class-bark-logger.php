@@ -18,7 +18,7 @@ class Bark_Logger {
 	 * @param string $message Message for the entry.
 	 * @param string $context Additional information about the entry.
 	 */
-	public function log( $level = 'error', $message, array $context = array() ) {
+	public function log( $message, $level = 'error', array $context = array() ) {
 		if ( false === $this->should_log() ) {
 			return;
 		}
