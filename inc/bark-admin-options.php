@@ -6,7 +6,7 @@
  */
 
 function bark_options_page() {
-	add_submenu_page( 'edit.php?post_type=cdv8_bark', 'Bark Options', 'Bark Options', 'edit_posts', basename( __FILE__ ), 'bark_display_options' );
+	add_submenu_page( 'edit.php?post_type=cdv8_bark', 'Bark Options', 'Settings', 'edit_posts', basename( __FILE__ ), 'bark_display_options' );
 }
 add_action( 'admin_menu', 'bark_options_page' );
 
