@@ -16,7 +16,7 @@ function bark_register_levels() {
 		'show_ui'            => false,
 	) );
 }
-add_action( 'init', 'bark_register_levels' );
+add_action( 'init', 'bark_register_levels', 5 ); // 5 is needed so taxonomy exists during mu-plugin.
 
 /**
  * Setup Bark_Logger post types.
