@@ -1,0 +1,41 @@
+.bark-level-emergency,
+.striped > tbody > .bark-level-emergency {
+	background-color: #ac1111;
+	color: white;
+}
+
+.bark-level-alert,
+.striped > tbody > .bark-level-alert {
+	background-color: #cd6600;
+	color: white;
+}
+
+.bark-level-critical,
+.striped > tbody > .bark-level-critical {
+	background-color: #ff6471;
+}
+
+.bark-level-error,
+.striped > tbody > .bark-level-error {
+	background-color: #ffb35b;
+}
+
+.bark-level-warning,
+.striped > tbody > .bark-level-warning {
+	background-color: #fffbd9;
+}
+
+.bark-level-notice,
+.striped > tbody > .bark-level-notice {
+	background-color: #dbe9ff;
+}
+
+.bark-level-info,
+.striped > tbody > .bark-level-info {
+	background-color: #b4e7ff;
+}
+
+.bark-level-debug,
+.striped > tbody > .bark-level-debug {
+	background-color: #e1d2d0;
+}

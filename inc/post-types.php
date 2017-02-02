@@ -82,8 +82,8 @@ add_action( 'manage_cdv8_bark_posts_custom_column', 'bark_admin_column_content',
 function bark_set_admin_column_order() {
 	return array(
 		'cb' => '<input type="checkbox" />',
-		'title' => __( 'Message', 'bark' ),
 		'bark_level' => __( 'Level', 'bark' ),
+		'title' => __( 'Message', 'bark' ),
 		'bark_file' => __( 'File', 'bark' ),
 		'bark_line' => __( 'Line', 'bark' ),
 		'date' => __( 'Logged', 'bark' ),
