@@ -85,7 +85,12 @@ function bark_admin_column_content( $column_name, $post_id ) {
 	}
 
 	if ( 'bark_level' === $column_name ) {
-		echo $levels[0]->name;
+		$level = __( 'Level not provided.', 'bark' );
+		if ( ! empty( $levels[0]->name ) ) {
+			$level = $levels[0]->name;
+		}
+
+		echo esc_html( $level );
 	}
 }
 add_action( 'manage_cdv8_bark_posts_custom_column', 'bark_admin_column_content', 10, 2 );

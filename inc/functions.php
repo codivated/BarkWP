@@ -17,5 +17,10 @@ function bark_get_barks( $args ) {
 
 function bark_get_total() {
 	$count = wp_count_posts( 'cdv8_bark' );
-	return $count->publish;
+	$total = 0;
+	if ( ! empty( $count->publish ) ) {
+		$total = $count->publish;
+	}
+
+	return $total;
 }
