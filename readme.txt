@@ -1,4 +1,4 @@
-=== Plugin Name ===
+=== Bark ===
 Contributors: codivated, Oxymoron
 Donate link: https://www.paypal.me/zachwills94
 Tags: error log, error, log, reporting
@@ -16,11 +16,9 @@ Bark is a WordPress plugin that captures captures PHP warnings and notices and d
 
 For more information about how to log errors as a developer using Bark, check out the [Github](https://github.com/codivated/bark) page.
 
+_Note: This plugin is still in active development. Expect iterative updates! If you are a developer using Bark, realize that updates up until version 1.0 could contain updates that could require you to update your implementation of Bark._
+
 == Installation ==
-
-This section describes how to install the plugin and get it working.
-
-e.g.
 
 1. Upload the plugin files to the `/wp-content/plugins/bark` directory, or install the plugin through the WordPress plugins screen directly.
 1. Activate the plugin through the 'Plugins' screen in WordPress
@@ -36,6 +34,11 @@ None yet.
 2. Bark settings.
 
 == Changelog ==
+
+= 0.1 =
+* Initial release.
+
+== Upgrade Notice ==
 
 = 0.1 =
 * Initial release.
