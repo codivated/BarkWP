@@ -13,6 +13,7 @@ function bark_register_levels() {
 		'label'              => __( 'Levels', 'bark' ),
 		'hierarchical'       => true,
 		'publicly_queryable' => false,
+		'show_ui'            => false,
 	) );
 }
 add_action( 'init', 'bark_register_levels' );
