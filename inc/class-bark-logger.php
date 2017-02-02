@@ -19,6 +19,10 @@ class Bark_Logger {
 	 * @param string $context Additional information about the entry.
 	 */
 	public function log( $level = 'error', $message, array $context = array() ) {
+		if ( false === $this->should_log() ) {
+			return;
+		}
+
 		$bark = wp_insert_post( array(
 			'post_type' => 'cdv8_bark',
 			'post_title' => substr( $message, 0, 35 ) . '...',
@@ -29,6 +33,10 @@ class Bark_Logger {
 			'post_status' => 'publish',
 		) );
 		$this->assign_level_to_bark( $level, $bark );
+	}
+
+	public function should_log() {
+		return apply_filters( 'bark_should_log', true );
 	}
 
 	/**

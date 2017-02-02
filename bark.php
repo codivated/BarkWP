@@ -14,6 +14,8 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/inc/post-types.php';
+require_once __DIR__ . '/inc/functions.php';
+require_once __DIR__ . '/inc/default-filters.php';
 require_once __DIR__ . '/inc/activation.php';
 require_once __DIR__ . '/inc/bark-admin-options.php';
 require_once __DIR__ . '/inc/class-bark-logger.php';
@@ -32,11 +34,24 @@ register_activation_hook( __FILE__, 'bark_handle_plugin_activation' );
  */
 function bark_add_entry( $details ) {
 	$bark = new Bark_Logger();
-	$bark->log( $details['level'], $details['content'], $details['context'] );
+	if ( empty( $details['context'] ) ) {
+		$details['context'] = array();
+	}
+
+	$bark->log( $details['level'], $details['content'], (array) $details['context'] );
 }
 add_action( 'bark', 'bark_add_entry' );
 
-
+/**
+ * Catch generic PHP errors and bark them.
+ *
+ * @param $errno
+ * @param $errstr
+ * @param $errfile
+ * @param $errline
+ *
+ * @return bool
+ */
 function bark_catch_php_errors( $errno, $errstr, $errfile, $errline ) {
 	if ( ! ( error_reporting() & $errno ) ) {
 		return false;
