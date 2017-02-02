@@ -18,3 +18,7 @@ function bark_add_default_levels() {
 	wp_create_term( 'info', 'bark-level' );
 	wp_create_term( 'debug', 'bark-level' );
 }
+
+function bark_add_default_settings() {
+	update_option( 'bark-limit-logs', 500 );
+}

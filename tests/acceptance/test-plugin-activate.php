@@ -6,6 +6,11 @@
  */
 
 class PluginActivationTest extends WP_UnitTestCase {
+	public function setUp() {
+		parent::setUp();
+		bark_handle_plugin_activation();
+	}
+
 	/**
 	 * @test
 	 */
@@ -24,7 +29,6 @@ class PluginActivationTest extends WP_UnitTestCase {
 	 * @test
 	 */
 	public function pluginActivationFunctionCorrectlyAddsDefaultBarkLevels() {
-		bark_handle_adding_default_levels();
 		$term_query = new WP_Term_Query( array(
 			'taxonomy' => 'bark-level',
 			'hide_empty' => false,
@@ -40,5 +44,13 @@ class PluginActivationTest extends WP_UnitTestCase {
 		$this->assertNotFalse( get_term_by( 'slug', 'notice', 'bark-level' ) );
 		$this->assertNotFalse( get_term_by( 'slug', 'info', 'bark-level' ) );
 		$this->assertNotFalse( get_term_by( 'slug', 'debug', 'bark-level' ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function pluginActivateSetsDefaultBarkLimit_logs() {
+		$limit = get_option( 'bark-limit-logs' );
+		$this->assertNotEmpty( $limit );
 	}
 }
