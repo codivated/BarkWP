@@ -1,3 +1,18 @@
+@media screen and (max-width: 782px) {
+	th#bark_level,
+	.wp-list-table tr:not(.inline-edit-row):not(.no-items) td:not(.check-column).column-bark_level {
+		display: none;
+	}
+
+	.wp-list-table .is-expanded td:not(.hidden).column-bark_level {
+		padding-left: 50px;
+	}
+}
+
+/**
+ * Colors
+ */
+
 .bark-level-emergency,
 .striped > tbody > .bark-level-emergency {
 	background-color: #ac1111;
