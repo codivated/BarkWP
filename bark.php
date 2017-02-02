@@ -15,6 +15,7 @@
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/inc/post-types.php';
 require_once __DIR__ . '/inc/activation.php';
+require_once __DIR__ . '/inc/bark-admin-options.php';
 require_once __DIR__ . '/inc/class-bark-logger.php';
 
 function bark_handle_adding_default_levels() {
