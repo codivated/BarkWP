@@ -1,3 +1,6 @@
+/**
+ * Tweaks for fixing mobile view of admin list.
+ */
 @media screen and (max-width: 782px) {
 	th#bark_level,
 	.wp-list-table tr:not(.inline-edit-row):not(.no-items) td:not(.check-column).column-bark_level {
@@ -10,54 +13,54 @@
 }
 
 /**
- * Colors
+ * Colors.
  */
 
-.bark-level-emergency,
-.striped > tbody > .bark-level-emergency {
+.bark-level-emergency .column-bark_level ,
+.striped > tbody > .bark-level-emergency  .column-bark_level {
 	background-color: #ac1111;
 }
 
-.bark-level-alert,
-.striped > tbody > .bark-level-alert {
+.bark-level-alert .column-bark_level ,
+.striped > tbody > .bark-level-alert  .column-bark_level {
 	background-color: #dc4700;
 }
 
-.bark-level-critical,
-.striped > tbody > .bark-level-critical {
+.bark-level-critical .column-bark_level ,
+.striped > tbody > .bark-level-critical  .column-bark_level {
 	background-color: #ff8145;
 }
 
-.bark-level-alert td,
-.bark-level-alert td a,
-.bark-level-emergency td,
-.bark-level-emergency td a,
-.bark-level-critical td,
-.bark-level-critical td a {
+.bark-level-alert td.column-bark_level,
+.bark-level-alert td.column-bark_level a,
+.bark-level-emergency td.column-bark_level,
+.bark-level-emergency td.column-bark_level a,
+.bark-level-critical td.column-bark_level,
+.bark-level-critical td.column-bark_level a  {
 	color: white;
 }
 
-.bark-level-error,
-.striped > tbody > .bark-level-error {
+.bark-level-error .column-bark_level,
+.striped > tbody > .bark-level-error  .column-bark_level {
 	background-color: #ffb35b;
 }
 
-.bark-level-warning,
-.striped > tbody > .bark-level-warning {
+.bark-level-warning .column-bark_level ,
+.striped > tbody > .bark-level-warning  .column-bark_level {
 	background-color: #fffbd9;
 }
 
-.bark-level-notice,
-.striped > tbody > .bark-level-notice {
+.bark-level-notice .column-bark_level ,
+.striped > tbody > .bark-level-notice  .column-bark_level {
 	background-color: #dbe9ff;
 }
 
-.bark-level-info,
-.striped > tbody > .bark-level-info {
+.bark-level-info .column-bark_level ,
+.striped > tbody > .bark-level-info  .column-bark_level {
 	background-color: #b4e7ff;
 }
 
-.bark-level-debug,
-.striped > tbody > .bark-level-debug {
+.bark-level-debug .column-bark_level ,
+.striped > tbody > .bark-level-debug  .column-bark_level {
 	background-color: #fffbf4;
 }
