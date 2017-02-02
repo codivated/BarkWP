@@ -12,6 +12,7 @@ function bark_get_barks( $args ) {
 	$args['post_type'] = 'cdv8_bark';
 
 	$bark_query = new WP_Query( $args );
+	return $bark_query->posts;
 }
 
 function bark_get_total() {
