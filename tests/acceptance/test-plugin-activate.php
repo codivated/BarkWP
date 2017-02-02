@@ -24,7 +24,7 @@ class PluginActivationTest extends WP_UnitTestCase {
 	 * @test
 	 */
 	public function pluginActivationFunctionCorrectlyAddsDefaultBarkLevels() {
-		handle_adding_default_levels();
+		bark_handle_adding_default_levels();
 		$term_query = new WP_Term_Query( array(
 			'taxonomy' => 'bark-level',
 			'hide_empty' => false,

@@ -5,24 +5,22 @@
  * @package bark
  */
 
-namespace Bark;
-
 /**
  * Register bark levels.
  */
-function register_levels() {
+function bark_register_levels() {
 	register_taxonomy( 'bark-level', 'cdv8_bark', array(
 		'label'              => __( 'Levels', 'bark' ),
 		'hierarchical'       => true,
 		'publicly_queryable' => false,
 	) );
 }
-add_action( 'init', __NAMESPACE__ . '\\register_levels' );
+add_action( 'init', 'bark_register_levels' );
 
 /**
  * Setup Bark_Logger post types.
  */
-function setup_post_type() {
+function bark_setup_post_type() {
 	$labels = array(
 		'name'                  => _x( 'Bark', 'Post type general name', 'bark' ),
 		'singular_name'         => _x( 'Bark', 'Post type singular name', 'bark' ),
@@ -58,28 +56,29 @@ function setup_post_type() {
 
 	register_post_type( 'cdv8_bark', $args );
 }
-add_action( 'init', __NAMESPACE__ . '\\setup_post_type' );
+add_action( 'init', 'bark_setup_post_type' );
 
-function admin_column_content( $column_name, $post_id ) {
+function bark_admin_column_content( $column_name, $post_id ) {
 	$post = get_post( $post_id );
 	$decoded_content = json_decode( $post->post_content );
+	$context = $decoded_content->context;
 	$levels = wp_get_post_terms( $post_id, 'bark-level' );
 
 	if ( 'bark_file' === $column_name ) {
-		echo esc_html( $decoded_content->file );
+		echo esc_html( $context->file );
 	}
 
 	if ( 'bark_line' === $column_name ) {
-		echo esc_html( $decoded_content->line );
+		echo esc_html( $context->line );
 	}
 
 	if ( 'bark_level' === $column_name ) {
 		echo $levels[0]->name;
 	}
 }
-add_action( 'manage_cdv8_bark_posts_custom_column', __NAMESPACE__ . '\\admin_column_content', 10, 2 );
+add_action( 'manage_cdv8_bark_posts_custom_column', 'bark_admin_column_content', 10, 2 );
 
-function set_admin_column_order() {
+function bark_set_admin_column_order() {
 	return array(
 		'cb' => '<input type="checkbox" />',
 		'title' => __( 'Message', 'bark' ),
@@ -89,7 +88,4 @@ function set_admin_column_order() {
 		'date' => __( 'Logged', 'bark' ),
 	);
 }
-add_filter( 'manage_cdv8_bark_posts_columns' , __NAMESPACE__ . '\\set_admin_column_order' );
-
-
-
+add_filter( 'manage_cdv8_bark_posts_columns' , 'bark_set_admin_column_order' );

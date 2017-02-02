@@ -8,7 +8,7 @@
 class BarkTestCase extends WP_UnitTestCase {
 	public function setUp() {
 		parent::setUp();
-		$this->bark = new Bark\Bark_Logger();
+		$this->bark = new Bark_Logger();
 	}
 
 	public function testTrue() {

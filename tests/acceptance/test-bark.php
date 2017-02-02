@@ -29,6 +29,7 @@ class BarkTest extends WP_UnitTestCase {
 		) );
 
 		$this->assertNotEmpty( $barks->posts, 'Could not find any barks in database.' );
-		$this->assertEquals( $message, $barks->posts[0]->post_content, 'Found a bark in the database, but its title did not match what was expected.' );
+		$decoded_entry = json_decode( $barks->posts[0]->post_content );
+		$this->assertEquals( $message, $decoded_entry->message, 'Found a bark in the database, but its title did not match what was expected.' );
 	}
 }

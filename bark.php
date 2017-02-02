@@ -17,11 +17,11 @@ require_once __DIR__ . '/inc/post-types.php';
 require_once __DIR__ . '/inc/activation.php';
 require_once __DIR__ . '/inc/class-bark-logger.php';
 
-function handle_adding_default_levels() {
-	\Bark\register_levels();
+function bark_handle_adding_default_levels() {
+	bark_register_levels();
 	bark_add_default_levels();
 }
-register_activation_hook( __FILE__, 'handle_adding_default_levels' );
+register_activation_hook( __FILE__, 'bark_handle_adding_default_levels' );
 
 /**
  * Handle adding an entry when `bark` action is called.
@@ -29,7 +29,7 @@ register_activation_hook( __FILE__, 'handle_adding_default_levels' );
  * @param array $details Bark_Logger details.
  */
 function bark_add_entry( $details ) {
-	$bark = new \Bark\Bark_Logger();
+	$bark = new Bark_Logger();
 	$bark->log( $details['level'], $details['content'], $details['context'] );
 }
 add_action( 'bark', 'bark_add_entry' );
@@ -41,12 +41,11 @@ function bark_catch_php_errors( $errno, $errstr, $errfile, $errline ) {
 	}
 
 	$bark_details = array(
-		'content' => json_encode( array(
-			'message' => $errstr,
+		'content' => $errstr,
+		'context' => array(
 			'file' => $errfile,
 			'line' => $errline,
-		) ),
-		'context' => array(),
+		),
 	);
 
 	switch ( $errno ) {
