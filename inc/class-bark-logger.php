@@ -33,6 +33,8 @@ class Bark_Logger {
 			'post_status' => 'publish',
 		) );
 		$this->assign_level_to_bark( $level, $bark );
+
+		return $bark;
 	}
 
 	public function should_log() {

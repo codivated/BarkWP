@@ -11,14 +11,27 @@
  * @param array $details Bark_Logger details.
  */
 function bark_add_entry( $details ) {
+	global $wp;
+
 	$details = wp_parse_args( $details, array(
 		'level' => 'debug',
 		'message' => '',
 		'context' => array(),
 	) );
 
+	$details['context']['wp'] = $wp;
+	$details['context']['globals'] = array(
+		'$_GET' => $_GET,
+		'$_POST' => $_POST,
+		'$_SESSION' => $_SESSION,
+	);
+
+	$details = apply_filters( 'bark_details', $details );
+
+	do_action( 'bark_before_insert', $details );
 	$bark = new Bark_Logger();
-	$bark->log( $details['message'], $details['level'], (array) $details['context'] );
+	$bark_id = $bark->log( $details['message'], $details['level'], (array) $details['context'] );
+	do_action( 'bark_after_insert', $bark_id );
 }
 add_action( 'bark', 'bark_add_entry' );
 
