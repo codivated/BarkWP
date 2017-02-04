@@ -52,7 +52,7 @@ function bark_setup_post_type() {
 		'hierarchical'       => false,
 		'menu_position'      => null,
 		'menu_icon'          => plugin_dir_url( dirname( __FILE__ ) ) . '/assets/bark-icon.png',
-		'supports'           => array( 'title', 'editor', 'author' ),
+		'supports'           => array( 'title' ),
 	);
 
 	register_post_type( 'cdv8_bark', $args );
