@@ -122,5 +122,5 @@ function bark_context_display( $post ) {
 function bark_message_display( $post ) {
 	global $post;
 	$decoded = json_decode( $post->post_content ); ?>
-	<div><?php echo esc_html( $decoded->message ); ?></div><?php
+	<?php echo nl2br( $decoded->message ); ?><?php
 }

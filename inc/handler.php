@@ -48,3 +48,35 @@ function bark_catch_php_errors( $errno, $errstr, $errfile, $errline ) {
 	return false; // Allow PHP to continue and log this error as it normally would.
 }
 set_error_handler( 'bark_catch_php_errors', E_ALL );
+
+function bark_catch_php_shutdowns() {
+	$error = error_get_last();
+
+	if ( empty( $error ) ) {
+		return;
+	}
+
+	$bark_details = array(
+		'message' => $error['message'],
+		'context' => array(
+			'file' => $error['file'],
+			'line' => $error['line'],
+		),
+	);
+
+	switch ( $error['type'] ) {
+		case E_RECOVERABLE_ERROR:
+			$bark_details['level'] = 'error';
+			break;
+		case E_COMPILE_WARNING:
+			$bark_details['level'] = 'alert';
+			break;
+		default:
+			$bark_details['level'] = 'error';
+			break;
+	}
+
+	do_action( 'bark', $bark_details );
+	return true;
+}
+register_shutdown_function( 'bark_catch_php_shutdowns' );
