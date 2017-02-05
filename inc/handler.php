@@ -77,6 +77,6 @@ function bark_catch_php_shutdowns() {
 	}
 
 	do_action( 'bark', $bark_details );
-	return true;
+	return false;
 }
 register_shutdown_function( 'bark_catch_php_shutdowns' );

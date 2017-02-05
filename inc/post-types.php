@@ -12,7 +12,7 @@ function bark_register_levels() {
 	register_taxonomy( 'bark-level', 'cdv8_bark', array(
 		'label'              => __( 'Levels', 'bark' ),
 		'hierarchical'       => true,
-		'publicly_queryable' => false,
+		'publicly_queryable' => true,
 		'show_ui'            => false,
 	) );
 }
@@ -58,69 +58,3 @@ function bark_setup_post_type() {
 	register_post_type( 'cdv8_bark', $args );
 }
 add_action( 'init', 'bark_setup_post_type' );
-
-function bark_admin_column_content( $column_name, $post_id ) {
-	$post = get_post( $post_id );
-	$decoded = json_decode( $post->post_content );
-	$context = $decoded->context;
-
-	$levels = wp_get_post_terms( $post_id, 'bark-level' );
-
-	if ( 'bark_file' === $column_name ) {
-		$file_message = __( 'File not provided.', 'bark' );
-		if ( ! empty( $context->file ) ) {
-			$file_message = $context->file;
-		}
-
-		echo esc_html( $file_message );
-	}
-
-	if ( 'bark_line' === $column_name ) {
-		$line_message = __( 'Line not provided.', 'bark' );
-		if ( ! empty( $context->line ) ) {
-			$line_message = $context->line;
-		}
-
-		echo esc_html( $line_message );
-	}
-
-	if ( 'bark_level' === $column_name ) {
-		$level = __( 'Level not provided.', 'bark' );
-		if ( ! empty( $levels[0]->name ) ) {
-			$level = $levels[0]->name;
-		}
-
-		echo esc_html( $level );
-	}
-}
-add_action( 'manage_cdv8_bark_posts_custom_column', 'bark_admin_column_content', 10, 2 );
-
-function bark_set_admin_column_order() {
-	return array(
-		'cb' => '<input type="checkbox" />',
-		'bark_level' => __( 'Level', 'bark' ),
-		'title' => __( 'Message', 'bark' ),
-		'bark_file' => __( 'File', 'bark' ),
-		'bark_line' => __( 'Line', 'bark' ),
-		'date' => __( 'Logged', 'bark' ),
-	);
-}
-add_filter( 'manage_cdv8_bark_posts_columns' , 'bark_set_admin_column_order' );
-
-function bark_register_meta_boxes() {
-	add_meta_box( 'bark-message', __( 'Message', 'bark' ), 'bark_message_display', 'cdv8_bark' );
-	add_meta_box( 'bark-context', __( 'Context', 'bark' ), 'bark_context_display', 'cdv8_bark' );
-}
-add_action( 'add_meta_boxes', 'bark_register_meta_boxes' );
-
-function bark_context_display( $post ) {
-	global $post;
-	$decoded = json_decode( $post->post_content ); ?>
-	<div style="overflow-x: auto;"><?php krumo( $decoded->context ); ?></div><?php
-}
-
-function bark_message_display( $post ) {
-	global $post;
-	$decoded = json_decode( $post->post_content ); ?>
-	<?php echo nl2br( $decoded->message ); ?><?php
-}
