@@ -21,9 +21,9 @@ function bark_add_entry( $details ) {
 
 	$details['context']['wp'] = $wp;
 	$details['context']['globals'] = array(
-		'$_GET' => $_GET,
-		'$_POST' => $_POST,
-		'$_SESSION' => $_SESSION,
+		'$_GET' => empty( $_GET ) ?  '' : $_GET,
+		'$_POST' => empty( $_POST ) ? '' : $_POST,
+		'$_SESSION' => empty( $_SESSION ) ? '' : $_SESSION,
 	);
 
 	$details = apply_filters( 'bark_details', $details );
