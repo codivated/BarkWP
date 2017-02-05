@@ -12,7 +12,7 @@ function bark_register_levels() {
 	register_taxonomy( 'bark-level', 'cdv8_bark', array(
 		'label'              => __( 'Levels', 'bark' ),
 		'hierarchical'       => true,
-		'publicly_queryable' => true,
+		'publicly_queryable' => false,
 		'show_ui'            => false,
 	) );
 }
