@@ -1,6 +1,7 @@
 {
     "require": {
-        "a5hleyrich/wp-background-processing": "^1.0"
+        "a5hleyrich/wp-background-processing": "^1.0",
+        "mmucklo/krumo": "*"
     },
     "require-dev": {
       "codacy/coverage": "^1.0"
