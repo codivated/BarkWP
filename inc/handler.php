@@ -5,30 +5,20 @@
  * @package bark
  */
 
-/**
- * Catch generic PHP errors and bark them.
- *
- * @param $errno
- * @param $errstr
- * @param $errfile
- * @param $errline
- *
- * @return bool
- */
-function bark_catch_php_errors( $errno, $errstr, $errfile, $errline ) {
-	if ( ! ( error_reporting() & $errno ) ) {
+function bark_catch_generic_php_errors( $error_number, $error_message, $error_file, $error_line ) {
+	if ( ! ( error_reporting() & $error_number ) ) {
 		return false;
 	}
 
 	$bark_details = array(
-		'message' => $errstr,
+		'message' => $error_message,
 		'context' => array(
-			'file' => $errfile,
-			'line' => $errline,
+			'file' => $error_file,
+			'line' => $error_line,
 		),
 	);
 
-	switch ( $errno ) {
+	switch ( $error_number ) {
 		case E_USER_ERROR:
 		case E_ERROR:
 			$bark_details['level'] = 'error';
@@ -47,7 +37,7 @@ function bark_catch_php_errors( $errno, $errstr, $errfile, $errline ) {
 	do_action( 'bark', $bark_details );
 	return false; // Allow PHP to continue and log this error as it normally would.
 }
-set_error_handler( 'bark_catch_php_errors', E_ALL );
+set_error_handler( 'bark_catch_generic_php_errors', E_ALL );
 
 function bark_catch_php_shutdowns() {
 	$error = error_get_last();

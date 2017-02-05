@@ -18,10 +18,18 @@ class Bark_Logger {
 	 * @param string $message Message for the entry.
 	 * @param string $context Additional information about the entry.
 	 */
-	public function log( $message, $level = 'error', array $context = array() ) {
+	public function log( $message, $level = 'debug', array $context = array() ) {
 		if ( false === $this->should_log() ) {
 			return;
 		}
+
+		$backtrace = debug_backtrace();
+		$caller = array_shift( $backtrace );
+
+		$context = wp_parse_args( $context, array(
+			'file' => $caller['file'],
+			'line' => $caller['line'],
+		) );
 
 		$bark = wp_insert_post( array(
 			'post_type' => 'cdv8_bark',
