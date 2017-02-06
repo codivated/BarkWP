@@ -8,8 +8,8 @@
 function bark_register_meta_boxes() {
 	add_meta_box( 'bark-message', __( 'Message', 'bark' ), 'bark_message_display', 'cdv8_bark' );
 	add_meta_box( 'bark-location', __( 'Location', 'bark' ), 'bark_location_display', 'cdv8_bark' );
-	add_meta_box( 'bark-custom-context', __( 'Custom Context', 'bark' ), 'bark_custom_context_display', 'cdv8_bark' );
 	add_meta_box( 'bark-system-context', __( 'System Context', 'bark' ), 'bark_system_context_display', 'cdv8_bark' );
+	add_meta_box( 'bark-custom-context', __( 'Custom Context', 'bark' ), 'bark_custom_context_display', 'cdv8_bark' );
 }
 add_action( 'add_meta_boxes', 'bark_register_meta_boxes' );
 
