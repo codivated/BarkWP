@@ -1,3 +1,8 @@
+/* Fix visual issue with excess space under title on post edit page. */
+.post-type-cdv8_bark #post-body #normal-sortables {
+	min-height: 0;
+}
+
 /**
  * Tweaks for fixing mobile view of admin list.
  */
@@ -19,7 +24,6 @@
 /**
  * Colors.
  */
-
 @media screen and (min-width: 782px) {
 	td.bark_level.column-bark_level {
 		position: relative;
