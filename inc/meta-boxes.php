@@ -7,14 +7,43 @@
 
 function bark_register_meta_boxes() {
 	add_meta_box( 'bark-message', __( 'Message', 'bark' ), 'bark_message_display', 'cdv8_bark' );
-	add_meta_box( 'bark-context', __( 'Context', 'bark' ), 'bark_context_display', 'cdv8_bark' );
+	add_meta_box( 'bark-location', __( 'Location', 'bark' ), 'bark_location_display', 'cdv8_bark' );
+	add_meta_box( 'bark-custom-context', __( 'Custom Context', 'bark' ), 'bark_custom_context_display', 'cdv8_bark' );
+	add_meta_box( 'bark-system-context', __( 'System Context', 'bark' ), 'bark_system_context_display', 'cdv8_bark' );
 }
 add_action( 'add_meta_boxes', 'bark_register_meta_boxes' );
 
-function bark_context_display( $post ) {
+function bark_location_display() {
 	global $post;
 	$decoded = json_decode( $post->post_content ); ?>
-	<div style="overflow-x: auto;"><?php krumo( $decoded->context ); ?></div><?php
+	<table>
+		<tr>
+			<td><strong><?php esc_html_e( 'File', 'bark' ); ?></strong></td>
+			<td><?php echo esc_html( $decoded->context->file ); ?></td>
+		</tr>
+		<tr>
+			<td><strong><?php esc_html_e( 'Line', 'bark' ); ?></strong></td>
+			<td><?php echo esc_html( $decoded->context->line ); ?></td>
+		</tr>
+	</table><?php
+}
+
+function bark_custom_context_display( $post ) {
+	global $post;
+	$decoded = json_decode( $post->post_content ); ?>
+	<p><?php echo esc_html( 'Custom context is any additional information a developer can provide about a Bark.', 'bark' ); ?></p>
+	<?php if ( ! empty( $decoded->context->custom ) ) : ?>
+		<div style="overflow-x: auto;"><?php krumo( $decoded->context->custom ); ?></div>
+	<?php else : ?>
+		<p><?php echo esc_html( 'No custom context provided.', 'bark' ); ?></p>
+	<?php endif;
+}
+
+function bark_system_context_display( $post ) {
+	global $post;
+	$decoded = json_decode( $post->post_content ); ?>
+	<p><?php echo esc_html( 'System context is debugging information automatically provided by Bark to every log.', 'bark' ); ?></p>
+	<div style="overflow-x: auto;"><?php krumo( $decoded->context->system ); ?></div><?php
 }
 
 function bark_message_display( $post ) {

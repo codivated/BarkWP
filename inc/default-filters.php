@@ -10,27 +10,24 @@
  *
  * @param array $details Bark_Logger details.
  */
-function bark_add_entry( $details ) {
+function bark_add_entry( $message, $level = 'debug', $context = array() ) {
 	global $wp;
 
-	$details = wp_parse_args( $details, array(
-		'level' => 'debug',
-		'message' => '',
-		'context' => array(),
-	) );
-
-	$details['context']['wp'] = $wp;
-	$details['context']['globals'] = array(
-		'$_GET' => empty( $_GET ) ?  '' : $_GET,
-		'$_POST' => empty( $_POST ) ? '' : $_POST,
-		'$_SESSION' => empty( $_SESSION ) ? '' : $_SESSION,
+	$bark_context['system'] = array(
+		'wp' => $wp,
+		'globals' => array(
+			'$_GET' => empty( $_GET ) ?  '' : $_GET,
+			'$_POST' => empty( $_POST ) ? '' : $_POST,
+			'$_SESSION' => empty( $_SESSION ) ? '' : $_SESSION,
+		),
 	);
+	$bark_context['custom'] = $context;
 
-	$details = apply_filters( 'bark_details', $details );
+	$bark_context = apply_filters( 'bark_context', $bark_context );
 
-	do_action( 'bark_before_insert', $details );
+	do_action( 'bark_before_insert', $message, $level, $bark_context );
 	$bark = new Bark_Logger();
-	$bark_id = $bark->log( $details['message'], $details['level'], (array) $details['context'] );
+	$bark_id = $bark->log( $message, $level, (array) $bark_context );
 	do_action( 'bark_after_insert', $bark_id );
 }
 add_action( 'bark', 'bark_add_entry' );

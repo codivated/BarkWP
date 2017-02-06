@@ -12,10 +12,7 @@ function bark_catch_generic_php_errors( $error_number, $error_message, $error_fi
 
 	$bark_details = array(
 		'message' => $error_message,
-		'context' => array(
-			'file' => $error_file,
-			'line' => $error_line,
-		),
+		'context' => array(),
 	);
 
 	switch ( $error_number ) {
@@ -34,7 +31,7 @@ function bark_catch_generic_php_errors( $error_number, $error_message, $error_fi
 			break;
 	}
 
-	do_action( 'bark', $bark_details );
+	do_action( 'bark', $bark_details['message'], $bark_details['level'], $bark_details['context'] );
 	return false; // Allow PHP to continue and log this error as it normally would.
 }
 set_error_handler( 'bark_catch_generic_php_errors', E_ALL );
@@ -48,10 +45,7 @@ function bark_catch_php_shutdowns() {
 
 	$bark_details = array(
 		'message' => $error['message'],
-		'context' => array(
-			'file' => $error['file'],
-			'line' => $error['line'],
-		),
+		'context' => array(),
 	);
 
 	switch ( $error['type'] ) {
@@ -66,7 +60,7 @@ function bark_catch_php_shutdowns() {
 			break;
 	}
 
-	do_action( 'bark', $bark_details );
+	do_action( 'bark', $bark_details['message'], $bark_details['level'], $bark_details['context'] );
 	return false;
 }
 register_shutdown_function( 'bark_catch_php_shutdowns' );
