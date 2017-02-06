@@ -32,6 +32,7 @@ function bark_custom_context_display( $post ) {
 	global $post;
 	$decoded = json_decode( $post->post_content ); ?>
 	<p><?php echo esc_html( 'Custom context is any additional information a developer can provide about a Bark.', 'bark' ); ?></p>
+
 	<?php if ( ! empty( $decoded->context->custom ) ) : ?>
 		<div style="overflow-x: auto;"><?php krumo( $decoded->context->custom ); ?></div>
 	<?php else : ?>
@@ -49,5 +50,5 @@ function bark_system_context_display( $post ) {
 function bark_message_display( $post ) {
 	global $post;
 	$decoded = json_decode( $post->post_content ); ?>
-	<?php echo nl2br( $decoded->message ); ?><?php
+	<?php echo esc_html( $decoded->message ); ?><?php
 }
