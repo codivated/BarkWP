@@ -34,6 +34,14 @@ add_action( 'bark', 'bark_add_entry' );
 
 function bark_prevent_log_if_limit_reached( $should_log ) {
 	$limit = get_option( 'bark-limit-logs', 1000 );
+
+	/**
+	 * Filter the number of logs that are allowed. If there are more barks currently in the
+	 * database than what this limit is set to, we prevent new barks from being added.
+	 *
+	 * @param int $limit Number of barks that are allowed before we prevent new barks.
+	 */
+	$limit = apply_filters( 'bark-log-limit', $limit );
 	$barks = bark_get_total();
 
 	if ( (int) $limit <= (int) $barks ) {
