@@ -23,11 +23,41 @@ function bark_add_entry( $message, $level = 'debug', $context = array() ) {
 	);
 	$bark_context['custom'] = $context;
 
+	/**
+	 * Filter the context included in a Bark.
+	 * The context is where additional information about the Bark is stored.
+	 *
+	 * @param array $bark_context The context to be saved for the given bark.
+	 *     array(
+	 *         'system' => array() // Context added automatically by bark.
+	 *         'custom' => array() // Context added by the user.
+	 *     );
+	 *
+	 * @since 0.1
+	 */
 	$bark_context = apply_filters( 'bark_context', $bark_context );
 
+	/**
+	 * Action fired before a bark is inserted into the database.
+	 *
+	 * @param string $message      Messge for the bark.
+	 * @param string $level        Bark level slug.
+	 * @param array  $bark_context Context for the bark.
+	 *
+	 * @since 0.1
+	 */
 	do_action( 'bark_before_insert', $message, $level, $bark_context );
+
 	$bark = new Bark_Logger();
 	$bark_id = $bark->log( $message, $level, (array) $bark_context );
+
+	/**
+	 * Action fired after a bark is inserted into the database.
+	 *
+	 * @param string $bark_id ID of the newly added bark.
+	 *
+	 * @since 0.1
+	 */
 	do_action( 'bark_after_insert', $bark_id );
 }
 add_action( 'bark', 'bark_add_entry' );
@@ -40,6 +70,7 @@ function bark_prevent_log_if_limit_reached( $should_log ) {
 	 * database than what this limit is set to, we prevent new barks from being added.
 	 *
 	 * @param int $limit Number of barks that are allowed before we prevent new barks.
+	 * @since 0.1
 	 */
 	$limit = apply_filters( 'bark-log-limit', $limit );
 	$barks = bark_get_total();

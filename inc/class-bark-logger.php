@@ -12,11 +12,13 @@
  */
 class Bark_Logger {
 	/**
-	 * Log an entry.
+	 * Log a bark into the database.
 	 *
 	 * @param string $level   Level of the bark.
 	 * @param string $message Message for the entry.
 	 * @param string $context Additional information about the entry.
+	 *
+	 * @since 0.1
 	 */
 	public function log( $message, $level = 'debug', array $context = array() ) {
 		if ( false === $this->should_log() ) {
@@ -46,6 +48,13 @@ class Bark_Logger {
 	}
 
 	public function should_log() {
+		/**
+		 * Filter whether or not the given bark should be logged.
+		 *
+		 * @param bool $should_log Should the bark be logged.
+		 *
+		 * @since 0.1
+		 */
 		return apply_filters( 'bark_should_log', true );
 	}
 
