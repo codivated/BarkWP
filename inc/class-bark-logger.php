@@ -65,6 +65,21 @@ class Bark_Logger {
 	 * @param int    $bark_id    The ID of the bark you want the level assigned to.
 	 */
 	public function assign_level_to_bark( $level_slug, $bark_id ) {
+		$level_whitelist = array(
+			'critical',
+			'emergency',
+			'alert',
+			'warning',
+			'error',
+			'notice',
+			'info',
+			'debug',
+		);
+
+		if ( ! in_array( $level_slug, $level_whitelist ) ) {
+			$level_slug = 'notice';
+		}
+
 		$level = get_term_by( 'slug', $level_slug, 'bark-level' );
 		if ( false === $level ) {
 			return false;

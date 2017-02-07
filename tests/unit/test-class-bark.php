@@ -30,10 +30,11 @@ class BarkClassTest extends BarkTestCase {
 	 * @test
 	 * @group Bark_Logger::assign_level_to_bark
 	 */
-	public function assignLevelReturnsErrorIfRequestedLevelDoesntExist() {
+	public function assignLevelDefaultsToNoticeIfRequestedLevelDoesntExist() {
 		$bark = $this->createBark();
 		$assignLevel = $this->bark->assign_level_to_bark( 'doesntExist', $bark );
 
-		$this->assertFalse( $assignLevel );
+		$term = get_term( $assignLevel[0] );
+		$this->assertEquals( $term->slug, 'notice' );
 	}
 }
