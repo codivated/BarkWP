@@ -65,7 +65,14 @@ class Bark_Logger {
 	 * @param int    $bark_id    The ID of the bark you want the level assigned to.
 	 */
 	public function assign_level_to_bark( $level_slug, $bark_id ) {
-		$level_whitelist = array(
+		/**
+		 * Whitelist Bark levels.
+		 *
+		 * @param array $level_whitelist Array of slugs for whitelisted levels.
+		 *
+		 * @since 0.1
+		 */
+		$level_whitelist = apply_filters( 'bark-level-whitelist', array(
 			'critical',
 			'emergency',
 			'alert',
@@ -74,14 +81,16 @@ class Bark_Logger {
 			'notice',
 			'info',
 			'debug',
-		);
+		) );
 
 		if ( ! in_array( $level_slug, $level_whitelist ) ) {
+			do_action( 'bark', '[' . $level_slug . '] not a whitelisted level. Defaulting to `notice`.', 'info' );
 			$level_slug = 'notice';
 		}
 
 		$level = get_term_by( 'slug', $level_slug, 'bark-level' );
 		if ( false === $level ) {
+			do_action( 'bark', '[' . $level_slug . '] level was not found in database.', 'error' );
 			return false;
 		}
 
