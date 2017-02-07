@@ -1,5 +1,11 @@
 ;( function( $ ) {
-    $( document ).ready( addClearAllBarksBtn );
+    function confirmBeforeDeletingAllBarks() {
+        var confirm = window.confirm( 'This action will delete all barks currently stored in the database. Are you sure you wish to continue?' );
+
+        if ( true === confirm ) {
+            window.location = window.location.href + '&deleteAllBarks=1';
+        }
+    }
 
     function addClearAllBarksBtn() {
         var $addNewBtn = $( document.querySelector( '.page-title-action' ) ),
@@ -11,11 +17,5 @@
         $addNewBtn.after( $clearAllBarksBtn );
     }
 
-    function confirmBeforeDeletingAllBarks() {
-        var confirm = window.confirm( 'This action will delete all barks currently stored in the database. Are you sure you wish to continue?' );
-
-        if ( true === confirm ) {
-            window.location = window.location.href + '&deleteAllBarks=1';
-        }
-    }
+    $( document ).ready( addClearAllBarksBtn );
 } )( jQuery );
