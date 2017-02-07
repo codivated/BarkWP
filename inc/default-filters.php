@@ -60,7 +60,7 @@ function bark_add_entry( $message, $level = 'debug', $context = array() ) {
 	 */
 	do_action( 'bark_after_insert', $bark_id );
 }
-add_action( 'bark', 'bark_add_entry' );
+add_action( 'bark', 'bark_add_entry', 10, 3 );
 
 function bark_prevent_log_if_limit_reached( $should_log ) {
 	$limit = get_option( 'bark-limit-logs', 1000 );

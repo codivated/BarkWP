@@ -14,8 +14,8 @@ class Bark_Logger {
 	/**
 	 * Log a bark into the database.
 	 *
-	 * @param string $level   Level of the bark.
 	 * @param string $message Message for the entry.
+	 * @param string $level   Level of the bark.
 	 * @param string $context Additional information about the entry.
 	 *
 	 * @since 0.1
