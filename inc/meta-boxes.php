@@ -6,12 +6,20 @@
  */
 
 function bark_register_meta_boxes() {
+	add_meta_box( 'bark-level', __( 'Level', 'bark' ), 'bark_level_display', 'cdv8_bark', 'advanced', 'high' );
 	add_meta_box( 'bark-message', __( 'Message', 'bark' ), 'bark_message_display', 'cdv8_bark' );
 	add_meta_box( 'bark-location', __( 'Location', 'bark' ), 'bark_location_display', 'cdv8_bark' );
-	add_meta_box( 'bark-system-context', __( 'System Context', 'bark' ), 'bark_system_context_display', 'cdv8_bark' );
 	add_meta_box( 'bark-custom-context', __( 'Custom Context', 'bark' ), 'bark_custom_context_display', 'cdv8_bark' );
+	add_meta_box( 'bark-system-context', __( 'System Context', 'bark' ), 'bark_system_context_display', 'cdv8_bark' );
 }
 add_action( 'add_meta_boxes', 'bark_register_meta_boxes' );
+
+function bark_level_display() {
+	global $post;
+	$terms = wp_get_post_terms( $post->ID, 'bark-level' );
+	$level = array_shift( $terms );
+	?><p><?php echo esc_html( $level->name ); ?></p><?php
+}
 
 function bark_location_display() {
 	global $post;
@@ -34,7 +42,7 @@ function bark_custom_context_display( $post ) {
 	<p><?php echo esc_html( 'Custom context is any additional information a developer can provide about a Bark.', 'bark' ); ?></p>
 
 	<?php if ( ! empty( $decoded->context->custom ) ) : ?>
-		<div style="overflow-x: auto;"><?php krumo( $decoded->context->custom ); ?></div>
+		<div style="overflow-x: auto;"><?php var_dump( $decoded->context->custom ); ?></div>
 	<?php else : ?>
 		<p><?php echo esc_html( 'No custom context provided.', 'bark' ); ?></p>
 	<?php endif;
@@ -44,7 +52,7 @@ function bark_system_context_display( $post ) {
 	global $post;
 	$decoded = json_decode( $post->post_content ); ?>
 	<p><?php echo esc_html( 'System context is debugging information automatically provided by Bark to every log.', 'bark' ); ?></p>
-	<div style="overflow-x: auto;"><?php krumo( $decoded->context->system ); ?></div><?php
+	<div style="overflow-x: auto;"><?php var_dump( $decoded->context->system ); ?></div><?php
 }
 
 function bark_message_display( $post ) {
