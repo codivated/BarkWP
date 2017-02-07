@@ -7,6 +7,22 @@
  * @package bark
  */
 
+function bark_admin_assets() {
+	$screen = get_current_screen();
+
+	$assets_url = plugin_dir_url( dirname( __FILE__ ) );
+	wp_enqueue_style( 'bark-admin-css', $assets_url . '/assets/admin.css' );
+
+	if ( 'edit-cdv8_bark' === $screen->id ) {
+	    wp_enqueue_script( 'bark-admin-js', $assets_url . '/assets/admin.js', array( 'jquery' ) );
+	}
+}
+add_action( 'admin_enqueue_scripts', 'bark_admin_assets' );
+
+function bark_admin_js() {
+}
+add_action( 'admin_enqueue_scripts', 'bark_admin_js' );
+
 function bark_admin_column_content( $column_name, $post_id ) {
 	$post = get_post( $post_id );
 	$decoded = json_decode( $post->post_content );
