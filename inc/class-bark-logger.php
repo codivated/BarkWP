@@ -20,7 +20,7 @@ class Bark_Logger {
 	 *
 	 * @since 0.1
 	 */
-	public function log( $message, $level = 'debug', array $context = array() ) {
+	public function log( $message, $level = 'debug', $context = array() ) {
 		if ( false === $this->should_log() ) {
 			return;
 		}

@@ -4,6 +4,14 @@
 }
 
 /**
+ * Small workaround to prevent flash of manually added notice on page before WP Admin JS puts it in the
+ * correct place.
+ */
+#wpbody-content .bark-notice {
+	display: block !important;
+}
+
+/**
  * Tweaks for fixing mobile view of admin list.
  */
 @media screen and (max-width: 782px) {

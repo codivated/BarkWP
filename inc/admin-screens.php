@@ -128,3 +128,33 @@ function bark_admin_respect_level_filter( $query ) {
 	}
 }
 add_filter( 'parse_query', 'bark_admin_respect_level_filter' );
+
+function bark_admin_maybe_clear_all_barks() {
+	global $wpdb;
+
+	if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+		return;
+	}
+
+	if ( ! isset( $_GET['deleteAllBarks'] ) ) {
+		return;
+	}
+
+	if ( ! current_user_can( 'manage_options' ) ) {
+		return;
+	}
+
+	$result = $wpdb->query(
+		"DELETE posts, postmeta
+	        FROM $wpdb->posts as posts
+	        LEFT OUTER JOIN $wpdb->postmeta as postmeta
+	        ON postmeta.post_id = posts.id
+	        WHERE posts.post_type = 'cdv8_bark'"
+	);
+
+	?>
+	<div class="notice notice-success bark-notice" style="display: none;">
+		<p><?php echo esc_html( sprintf( __( '%d barks have been deleted from the database.', 'bark' ), $result ) ); ?></p>
+	</div><?php
+}
+add_filter( 'admin_init', 'bark_admin_maybe_clear_all_barks' );
