@@ -13,8 +13,4 @@ class Bark_Queue extends WP_Background_Process {
 		$logger->log( $bark['message'], $bark['level'], $bark['context'] );
 		return false;
 	}
-
-	protected function complete() {
-		parent::complete();
-	}
 }

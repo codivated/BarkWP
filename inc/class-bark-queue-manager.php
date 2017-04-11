@@ -39,6 +39,7 @@ class Bark_Queue_Manager {
 	}
 
 	public function run() {
+		error_reporting( 0 );
 		$this->queue->dispatch();
 	}
 }
