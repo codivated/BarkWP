@@ -1,27 +1,24 @@
 <?php
 
-class Bark_Queue {
-	private static $instance;
+class Bark_Queue extends WP_Background_Process {
+	protected $action = 'bark';
 
-	public static function get_instance()
-	{
-		if (null === self::$instance) {
-			self::$instance = new self();
+	protected function task( $bark ) {
+		$logger = new Bark_Logger();
+		$logger->log( $bark['message'], $bark['level'], $bark['context'] );
+		return false;
+	}
+
+	protected function is_running() {
+		if ( get_site_transient( $this->identifier . '_process_lock' ) ) {
+			// Process already running.
+			return true;
 		}
 
-		return self::$instance;
+		return false;
 	}
 
-	public function __construct() {
-		$this->add_barks = new Add_Barks();
-	}
-
-	public function add( $bark ) {
-		$this->add_barks->push_to_queue( $bark );
-		$this->add_barks->save();
-	}
-
-	public function run() {
-		$this->add_barks->dispatch();
+	protected function complete() {
+		parent::complete();
 	}
 }

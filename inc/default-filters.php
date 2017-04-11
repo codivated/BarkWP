@@ -5,6 +5,11 @@
  * @package bark
  */
 
+function bark_save_queue() {
+	Bark_Queue_Manager::get_instance()->save();
+}
+add_action( 'wp_loaded', 'bark_save_queue', 500 );
+
 /**
  * Handle adding an entry when `bark` action is called.
  */
@@ -35,7 +40,7 @@ function bark_add_entry( $message, $level = 'debug', $context = array() ) {
 	 */
 	$bark_context = apply_filters( 'bark_context', $bark_context );
 
-	$bark_queue = Bark_Queue::get_instance();
+	$bark_queue = Bark_Queue_Manager::get_instance();
 	$bark_queue->add( array(
 		'message' => $message,
 		'level' => $level,
