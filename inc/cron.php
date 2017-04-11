@@ -5,17 +5,14 @@
  * @package bark
  */
 
-if ( ! wp_get_schedule( 'schedule_bark_process' ) ) {
-	add_action( 'init', 'schedule_bark_process', 10 );
-}
-
-function schedule_bark_process() {
-	wp_schedule_event( time(), '5min', 'bark_process_queue', $args );
+if ( ! wp_next_scheduled( 'bark_process_queue' ) ) {
+	wp_schedule_event( time(), '5min', 'bark_process_queue' );
 }
 
 function bark_process_queue() {
 	Bark_Queue_Manager::get_instance()->run();
 }
+add_action( 'bark_process_queue', 'bark_process_queue', 10 );
 
 function bark_cron_schedules( $schedules ) {
 	if ( ! isset( $schedules['5min'] ) ) {
