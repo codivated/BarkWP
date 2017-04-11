@@ -32,7 +32,7 @@ function bark_catch_generic_php_errors( $error_number, $error_message, $error_fi
 	}
 
 	do_action( 'bark', $bark_details['message'], $bark_details['level'], $bark_details['context'] );
-	return false; // Allow PHP to continue and log this error as it normally would.
+//	return false; // Allow PHP to continue and log this error as it normally would.
 }
 set_error_handler( 'bark_catch_generic_php_errors', E_ALL );
 

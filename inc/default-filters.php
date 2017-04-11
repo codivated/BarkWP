@@ -7,8 +7,6 @@
 
 /**
  * Handle adding an entry when `bark` action is called.
- *
- * @param array $details Bark_Logger details.
  */
 function bark_add_entry( $message, $level = 'debug', $context = array() ) {
 	global $wp;
@@ -37,28 +35,12 @@ function bark_add_entry( $message, $level = 'debug', $context = array() ) {
 	 */
 	$bark_context = apply_filters( 'bark_context', $bark_context );
 
-	/**
-	 * Action fired before a bark is inserted into the database.
-	 *
-	 * @param string $message      Messge for the bark.
-	 * @param string $level        Bark level slug.
-	 * @param array  $bark_context Context for the bark.
-	 *
-	 * @since 0.1
-	 */
-	do_action( 'bark_before_insert', $message, $level, $bark_context );
-
-	$bark = new Bark_Logger();
-	$bark_id = $bark->log( $message, $level, (array) $bark_context );
-
-	/**
-	 * Action fired after a bark is inserted into the database.
-	 *
-	 * @param string $bark_id ID of the newly added bark.
-	 *
-	 * @since 0.1
-	 */
-	do_action( 'bark_after_insert', $bark_id );
+	$bark_queue = Bark_Queue::get_instance();
+	$bark_queue->add( array(
+		'message' => $message,
+		'level' => $level,
+		'context' => (array) $bark_context,
+	) );
 }
 add_action( 'bark', 'bark_add_entry', 10, 3 );
 
