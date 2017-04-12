@@ -40,8 +40,7 @@ function bark_add_entry( $message, $level = 'debug', $context = array() ) {
 	 */
 	$bark_context = apply_filters( 'bark_context', $bark_context );
 
-	$bark_queue = Bark_Queue_Manager::get_instance();
-	$bark_queue->add( array(
+	Bark_Queue_Manager::get_instance()->add( array(
 		'message' => $message,
 		'level' => $level,
 		'context' => (array) $bark_context,

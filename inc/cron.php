@@ -5,20 +5,25 @@
  * @package bark
  */
 
-if ( ! wp_next_scheduled( 'bark_process_queue' ) ) {
-	wp_schedule_event( time(), '5min', 'bark_process_queue' );
-}
+function bark_schedule_dispatch_event() {
+	if ( wp_next_scheduled( 'bark_dispatch_queue' ) ) {
+		return;
+	}
 
-function bark_process_queue() {
+	wp_schedule_event( time(), '30sec', 'bark_dispatch_queue' );
+}
+add_action( 'init', 'bark_schedule_dispatch_event' );
+
+function bark_dispatch_queue() {
 	Bark_Queue_Manager::get_instance()->run();
 }
-add_action( 'bark_process_queue', 'bark_process_queue', 10 );
+add_action( 'bark_dispatch_queue', 'bark_dispatch_queue', 10 );
 
 function bark_cron_schedules( $schedules ) {
-	if ( ! isset( $schedules['5min'] ) ) {
-		$schedules['5min'] = array(
-			'interval' => (5*60),
-			'display'  => __( 'Once every 5 minutes', 'bark' ),
+	if ( ! isset( $schedules['30sec'] ) ) {
+		$schedules['30sec'] = array(
+			'interval' => 30,
+			'display'  => __( 'Every 30s', 'bark' ),
 		);
 	}
 

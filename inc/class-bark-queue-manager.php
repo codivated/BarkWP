@@ -10,7 +10,6 @@
  */
 class Bark_Queue_Manager {
 	private static $instance;
-
 	protected $queue;
 
 	public static function get_instance()
@@ -26,11 +25,12 @@ class Bark_Queue_Manager {
 		$this->queue = new Bark_Queue();
 	}
 
-	public function get_queue() {
-		return $this->queue;
+	protected function add_single( $bark ) {
+		$this->queue->push_to_queue( $bark );
+		$this->save();
 	}
 
-	public function add( $bark ) {
+	protected function add_to_collection( $bark ) {
 		$this->queue->push_to_queue( $bark );
 	}
 
@@ -38,8 +38,32 @@ class Bark_Queue_Manager {
 		$this->queue->save();
 	}
 
+	/**
+	 * Add single error or add the error to the collection of errors.
+	 *
+	 * @param $bark
+	 */
+	public function add( $bark ) {
+		if ( did_action( 'wp_loaded' ) ) {
+			$this->add_single( $bark );
+		} else {
+			$this->add_to_collection( $bark );
+		}
+	}
+
+	/**
+	 *
+	 */
+	public function push_collection_to_queue() {
+		foreach ( $this->collection as $bark ) {
+			$this->queue->push_to_queue( $bark );
+		}
+	}
+
 	public function run() {
 		error_reporting( 0 );
 		$this->queue->dispatch();
 	}
 }
+
+$bark_queue_manager = Bark_Queue_Manager::get_instance();
