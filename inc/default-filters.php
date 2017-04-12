@@ -16,6 +16,12 @@ add_action( 'wp_loaded', 'bark_save_queue', 500 );
 function bark_add_entry( $message, $level = 'debug', $context = array() ) {
 	global $wp;
 
+	$backtrace = debug_backtrace();
+	$caller = array_shift( $backtrace );
+
+	$bark_context['file'] = $caller['file'];
+	$bark_context['line'] = $caller['line'];
+
 	$bark_context['system'] = array(
 		'wp' => $wp,
 		'globals' => array(
@@ -24,6 +30,7 @@ function bark_add_entry( $message, $level = 'debug', $context = array() ) {
 			'$_SESSION' => empty( $_SESSION ) ? '' : $_SESSION,
 		),
 	);
+
 	$bark_context['custom'] = $context;
 
 	/**

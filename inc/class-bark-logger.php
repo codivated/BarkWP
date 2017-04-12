@@ -27,14 +27,6 @@ class Bark_Logger {
 			return new WP_Error(500, 'Error should not be logged.');
 		}
 
-		$backtrace = debug_backtrace();
-		$caller = array_shift( $backtrace );
-
-		$context = @wp_parse_args( $context, array(
-			'file' => $caller['file'],
-			'line' => $caller['line'],
-		) );
-
 		/**
 		 * Action fired before a bark is inserted into the database.
 		 *
