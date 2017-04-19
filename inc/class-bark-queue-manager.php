@@ -47,6 +47,7 @@ class Bark_Queue_Manager {
 		if ( ! $this->background_processing_enabled() ) {
 			$logger = new Bark_Logger();
 			$logger->log( $bark['message'], $bark['level'], $bark['context'] );
+			return;
 		}
 
 		if ( did_action( 'wp_loaded' ) ) {
