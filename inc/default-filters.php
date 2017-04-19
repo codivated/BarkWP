@@ -27,7 +27,7 @@ function bark_add_entry( $message, $level = 'debug', $context = array() ) {
 	// A few of the backtrace items are going to be WP core related to `add_action` since that is how we
 	// trigger barks.
 	foreach ( $backtrace as $backtrace_item ) {
-		if ('bark' === $backtrace_item['args'][0]) {
+		if (! empty($backtrace_item['args'][0]) && 'bark' === $backtrace_item['args'][0]) {
 			$bark_context['file'] = $backtrace_item['file'];
 			$bark_context['line'] = $backtrace_item['line'];
 		}
