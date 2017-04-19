@@ -57,7 +57,7 @@ class Bark_Queue_Manager {
 	}
 
 	public function background_processing_enabled() {
-		$enabled = get_option( 'bark_enable_background_processing', false );
+		$enabled = get_option( 'bark-enable-background-processing', 0 );
 
 		/**
 		 * Enable background processing.
@@ -66,9 +66,9 @@ class Bark_Queue_Manager {
 		 * that no matter how many barks occur during a page load it will not negatively impact page-load time.
 		 *
 		 * @since 0.1
-		 * @param bool $enabled
+		 * @param int $enabled
 		 */
-		return apply_filters( 'bark_enable_background_processing', $enabled );
+		return (int) apply_filters( 'bark-enable-background-processing', $enabled );
 	}
 
 	public function run() {
