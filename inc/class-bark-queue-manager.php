@@ -62,6 +62,9 @@ class Bark_Queue_Manager {
 		/**
 		 * Enable background processing.
 		 *
+		 * Background processing is useful when you don't need to see errors reported in real-time. The benefit is
+		 * that no matter how many barks occur during a page load it will not negatively impact page-load time.
+		 *
 		 * @since 0.1
 		 * @param bool $enabled
 		 */

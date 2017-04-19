@@ -19,38 +19,20 @@ add_action( 'wp_loaded', 'bark_save_queue', 500 );
  * Handle adding an entry when `bark` action is called.
  */
 function bark_add_entry( $message, $level = 'debug', $context = array() ) {
-	global $wp;
-
 	$backtrace = debug_backtrace();
 	$caller = array_shift( $backtrace );
 
-	$bark_context['file'] = $caller['file'];
-	$bark_context['line'] = $caller['line'];
+	$bark_context['file'] = '';
+	if (isset( $caller['file'] )) {
+		$bark_context['file'] = $caller['file'];
+	}
 
-	$bark_context['system'] = array(
-		'wp' => $wp,
-		'globals' => array(
-			'$_GET' => empty( $_GET ) ?  '' : $_GET,
-			'$_POST' => empty( $_POST ) ? '' : $_POST,
-			'$_SESSION' => empty( $_SESSION ) ? '' : $_SESSION,
-		),
-	);
+	$bark_context['line'] = '';
+	if (isset( $caller['line'] )) {
+		$bark_context['line'] = $caller['line'];
+	}
 
 	$bark_context['custom'] = $context;
-
-	/**
-	 * Filter the context included in a Bark.
-	 * The context is where additional information about the Bark is stored.
-	 *
-	 * @param array $bark_context The context to be saved for the given bark.
-	 *     array(
-	 *         'system' => array() // Context added automatically by bark.
-	 *         'custom' => array() // Context added by the user.
-	 *     );
-	 *
-	 * @since 0.1
-	 */
-	$bark_context = apply_filters( 'bark_context', $bark_context );
 
 	Bark_Queue_Manager::get_instance()->add( array(
 		'message' => $message,
