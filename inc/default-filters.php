@@ -5,13 +5,22 @@
  * @package bark
  */
 
+function bark_save_queue() {
+	Bark_Queue_Manager::get_instance()->save();
+}
+add_action( 'wp_loaded', 'bark_save_queue', 500 );
+
 /**
  * Handle adding an entry when `bark` action is called.
- *
- * @param array $details Bark_Logger details.
  */
 function bark_add_entry( $message, $level = 'debug', $context = array() ) {
 	global $wp;
+
+	$backtrace = debug_backtrace();
+	$caller = array_shift( $backtrace );
+
+	$bark_context['file'] = $caller['file'];
+	$bark_context['line'] = $caller['line'];
 
 	$bark_context['system'] = array(
 		'wp' => $wp,
@@ -21,6 +30,7 @@ function bark_add_entry( $message, $level = 'debug', $context = array() ) {
 			'$_SESSION' => empty( $_SESSION ) ? '' : $_SESSION,
 		),
 	);
+
 	$bark_context['custom'] = $context;
 
 	/**
@@ -37,33 +47,16 @@ function bark_add_entry( $message, $level = 'debug', $context = array() ) {
 	 */
 	$bark_context = apply_filters( 'bark_context', $bark_context );
 
-	/**
-	 * Action fired before a bark is inserted into the database.
-	 *
-	 * @param string $message      Messge for the bark.
-	 * @param string $level        Bark level slug.
-	 * @param array  $bark_context Context for the bark.
-	 *
-	 * @since 0.1
-	 */
-	do_action( 'bark_before_insert', $message, $level, $bark_context );
-
-	$bark = new Bark_Logger();
-	$bark_id = $bark->log( $message, $level, (array) $bark_context );
-
-	/**
-	 * Action fired after a bark is inserted into the database.
-	 *
-	 * @param string $bark_id ID of the newly added bark.
-	 *
-	 * @since 0.1
-	 */
-	do_action( 'bark_after_insert', $bark_id );
+	Bark_Queue_Manager::get_instance()->add( array(
+		'message' => $message,
+		'level' => $level,
+		'context' => (array) $bark_context,
+	) );
 }
 add_action( 'bark', 'bark_add_entry', 10, 3 );
 
 function bark_prevent_log_if_limit_reached( $should_log ) {
-	$limit = get_option( 'bark-limit-logs', 1000 );
+	$limit = get_option( 'bark-limit-logs', 5000 );
 
 	/**
 	 * Filter the number of logs that are allowed. If there are more barks currently in the

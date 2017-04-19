@@ -12,11 +12,12 @@ function bark_register_levels() {
 	register_taxonomy( 'bark-level', 'cdv8_bark', array(
 		'label'              => __( 'Levels', 'bark' ),
 		'hierarchical'       => true,
-		'publicly_queryable' => false,
+		'publicly_queryable' => true,
 		'show_ui'            => false,
 	) );
 }
 add_action( 'init', 'bark_register_levels', 5 ); // 5 is needed so taxonomy exists during mu-plugin.
+add_action( 'bark_register_levels', 'bark_register_levels' );
 
 /**
  * Setup Bark_Logger post types.
