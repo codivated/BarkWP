@@ -44,6 +44,11 @@ class Bark_Queue_Manager {
 	 * @param $bark
 	 */
 	public function add( $bark ) {
+		if ( ! $this->background_processing_enabled() ) {
+			$logger = new Bark_Logger();
+			$logger->log( $bark['message'], $bark['level'], $bark['context'] );
+		}
+
 		if ( did_action( 'wp_loaded' ) ) {
 			$this->add_single( $bark );
 		} else {
@@ -51,17 +56,19 @@ class Bark_Queue_Manager {
 		}
 	}
 
-	/**
-	 *
-	 */
-	public function push_collection_to_queue() {
-		foreach ( $this->collection as $bark ) {
-			$this->queue->push_to_queue( $bark );
-		}
+	public function background_processing_enabled() {
+		$enabled = get_option( 'bark_enable_background_processing', false );
+
+		/**
+		 * Enable background processing.
+		 *
+		 * @since 0.1
+		 * @param bool $enabled
+		 */
+		return apply_filters( 'bark_enable_background_processing', $enabled );
 	}
 
 	public function run() {
-		error_reporting( 0 );
 		$this->queue->dispatch();
 	}
 }

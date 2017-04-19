@@ -5,6 +5,11 @@
  * @package bark
  */
 
+/**
+ * Add barks caught before `wp_loaded` in 1 batch.
+ *
+ * All subsequent barks will be added individually.
+ */
 function bark_save_queue() {
 	Bark_Queue_Manager::get_instance()->save();
 }

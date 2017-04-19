@@ -11,10 +11,6 @@ class BarkTestCase extends WP_UnitTestCase {
 		$this->bark = new Bark_Logger();
 	}
 
-	public function testTrue() {
-		$this->assertTrue(true);
-	}
-
 	public function addDefaultLevels() {
 		bark_add_default_levels();
 	}
