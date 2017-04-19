@@ -56,7 +56,7 @@ function bark_add_entry( $message, $level = 'debug', $context = array() ) {
 add_action( 'bark', 'bark_add_entry', 10, 3 );
 
 function bark_prevent_log_if_limit_reached( $should_log ) {
-	$limit = get_option( 'bark-limit-logs', 1000 );
+	$limit = get_option( 'bark-limit-logs', 5000 );
 
 	/**
 	 * Filter the number of logs that are allowed. If there are more barks currently in the

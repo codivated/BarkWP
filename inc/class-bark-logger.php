@@ -97,10 +97,6 @@ class Bark_Logger {
 	 * @return array|WP_Error
 	 */
 	protected function get_or_create_whitelisted_level( $level_slug )  {
-		if ( 0 === did_action( 'init' ) ) {
-			do_action( 'init' );
-		}
-
 		/**
 		 * Whitelist Bark levels.
 		 *

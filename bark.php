@@ -21,7 +21,6 @@ require_once __DIR__ . '/inc/admin-screens.php';
 require_once __DIR__ . '/inc/meta-boxes.php';
 require_once __DIR__ . '/inc/functions.php';
 require_once __DIR__ . '/inc/default-filters.php';
-require_once __DIR__ . '/inc/handler.php';
 require_once __DIR__ . '/inc/activation.php';
 require_once __DIR__ . '/inc/bark-admin-options.php';
 require_once __DIR__ . '/inc/class-bark-logger.php';
