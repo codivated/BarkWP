@@ -20,6 +20,7 @@ add_action( 'wp_loaded', 'bark_save_queue', 500 );
  */
 function bark_add_entry( $message, $level = 'debug', $context = array() ) {
 	$backtrace = debug_backtrace();
+	$bark_context = array();
 
 	$bark_context['file'] = '';
 	$bark_context['line'] = '';
