@@ -40,7 +40,7 @@ class Bark_Logger {
 
 		$bark = wp_insert_post( array(
 			'post_type' => 'cdv8_bark',
-			'post_title' => substr( $message, 0, 50 ) . '...',
+			'post_title' => substr( $message, 0, 100 ) . '...',
 			'post_content' => json_encode( array(
 				'message' => $message,
 				'context' => $context,

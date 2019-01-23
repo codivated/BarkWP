@@ -10,7 +10,6 @@ function bark_register_meta_boxes() {
 	add_meta_box( 'bark-message', __( 'Message', 'bark' ), 'bark_message_display', 'cdv8_bark' );
 	add_meta_box( 'bark-location', __( 'Location', 'bark' ), 'bark_location_display', 'cdv8_bark' );
 	add_meta_box( 'bark-custom-context', __( 'Custom Context', 'bark' ), 'bark_custom_context_display', 'cdv8_bark' );
-	add_meta_box( 'bark-stack-trace', __( 'Stack Trace', 'bark' ), 'bark_backtrace_context_display', 'cdv8_bark' );
 	add_meta_box( 'bark-system-context', __( 'System Context', 'bark' ), 'bark_system_context_display', 'cdv8_bark' );
 }
 
@@ -54,16 +53,11 @@ function bark_system_context_display( $post ) {
 	global $post;
 	$decoded = json_decode( $post->post_content ); ?>
 	<p><?php echo esc_html( 'System context is debugging information automatically provided by Bark to every log.', 'bark' ); ?></p>
-	<div style="overflow-x: auto;"><pre><?php echo print_r( $decoded->context->system ); ?></pre></div><?php
-}
-
-function bark_backtrace_context_display( $post ) {
-	global $post;
-	$decoded = json_decode( $post->post_content ); ?>
-	<p><?php echo esc_html( 'PHP Stack Trace', 'bark' ); ?></p>
-	<div style="overflow-x: auto;">
-		<pre><?php echo print_r( $decoded->context->backtrace ); ?></pre>
-	</div><?php
+	<?php if ( ! empty( $decoded->context->system ) ) : ?>
+		<div style="overflow-x: auto;"><pre><?php echo print_r( $decoded->context->system ); ?></pre></div><?php
+	else :?>
+		<p><?php echo esc_html( 'No custom context provided.', 'bark' ); ?></p>
+	<?php endif;
 }
 
 function bark_message_display( $post ) {
