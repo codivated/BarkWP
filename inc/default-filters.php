@@ -17,13 +17,11 @@ add_action( 'wp_loaded', 'bark_save_queue', 500 );
 /**
  * Handle adding an entry when `bark` action is called.
  */
-function bark_add_entry( $message, $level = 'debug', $context = array(), $line = '', $file = '' ) {
-	$backtrace    = debug_backtrace();
+function bark_add_entry( $message, $level = 'debug', $context = array(), $error ) {
 	$bark_context = array();
 
-	$bark_context['backtrace'] = $backtrace;
-	$bark_context['line'] = $line;
-	$bark_context['file'] = $file;
+	$bark_context['line'] = $error['line'];
+	$bark_context['file'] = $error['file'];
 
 	if ( empty( $bark_context['line'] ) || empty( $bark_context['file'] ) ) {
 		// A few of the backtrace items are going to be WP core related to `add_action` since that is how we
