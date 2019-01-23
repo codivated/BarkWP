@@ -24,6 +24,7 @@ require_once __DIR__ . '/inc/default-filters.php';
 require_once __DIR__ . '/inc/activation.php';
 require_once __DIR__ . '/inc/bark-admin-options.php';
 require_once __DIR__ . '/inc/class-bark-logger.php';
+require_once __DIR__ . '/inc/handler.php';
 
 // Background processes & crons.
 require_once __DIR__ . '/inc/class-bark-queue.php';
